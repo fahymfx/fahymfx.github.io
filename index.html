@@ -1931,19 +1931,13 @@
         .style-tabs-outer {
             position: relative;
             margin-bottom: 32px;
+            background: transparent !important;
         }
 
-        /* Fade edge on the right */
+        .style-tabs-outer::before,
         .style-tabs-outer::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 60px;
-            background: linear-gradient(to right, transparent, var(--bg) 85%);
-            pointer-events: none;
-            z-index: 5;
+            content: none !important;
+            display: none !important;
         }
 
         .style-tabs-wrap {
@@ -1956,23 +1950,37 @@
             -ms-overflow-style: none;
             padding-bottom: 4px;
             width: 100%;
-            background: transparent;
-            border: none;
+            background: transparent !important;
+            border: none !important;
             border-radius: 0;
+            box-shadow: none !important;
         }
 
-        .style-tabs-wrap::-webkit-scrollbar {
-            display: none;
+        .style-tabs-wrap::-webkit-scrollbar { display: none; }
+        .style-tabs-wrap::-webkit-scrollbar-corner { background: transparent !important; }
+        .style-tabs-wrap::-webkit-scrollbar-track { background: transparent !important; }
+
+        .style-tabs-wrap::before,
+        .style-tabs-wrap::after {
+            content: none !important;
+            display: none !important;
         }
 
         .style-tabs {
             display: flex;
             gap: 12px;
             padding: 4px 0;
-            padding-right: 70px;
+            padding-right: 20px;
             width: fit-content;
             min-width: 100%;
             justify-content: center;
+            background: transparent !important;
+        }
+
+        .style-tabs::before,
+        .style-tabs::after {
+            content: none !important;
+            display: none !important;
         }
 
         .style-tab {
@@ -1992,6 +2000,12 @@
             letter-spacing: 0.01em;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        }
+
+        .style-tab::before,
+        .style-tab::after {
+            content: none !important;
+            display: none !important;
         }
 
         .style-tab:hover {
@@ -2028,10 +2042,6 @@
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
-            }
-
-            .style-tabs-outer::after {
-                width: 40px;
             }
 
             .style-tabs {
