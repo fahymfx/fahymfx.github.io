@@ -417,7 +417,6 @@
             font-size: 1rem;
         }
 
-        /* Language toggle in dock */
         .dock-item.lang-dock {
             font-size: 0.7rem;
             font-weight: 800;
@@ -949,6 +948,67 @@
             gap: 20px;
         }
 
+        /* === EMPTY STATE === */
+        #empty-msg {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            color: var(--accent);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        #empty-msg i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0.7;
+            animation: spin-gentle 4s linear infinite;
+        }
+
+        @keyframes spin-gentle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        #empty-msg .msg-en,
+        #empty-msg .msg-ar {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        #empty-msg .msg-sub {
+            font-size: 0.88rem;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+        }
+
+        [lang="ar"] #empty-msg .msg-en,
+        [lang="en"] #empty-msg .msg-ar {
+            display: none;
+        }
+
+        [lang="ar"] #empty-msg .msg-ar,
+        [lang="en"] #empty-msg .msg-en {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .project-item {
             position: relative;
             border-radius: var(--radius);
@@ -1077,6 +1137,109 @@
             border-radius: 100px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+        }
+
+        /* === STYLE TABS === */
+        .style-tabs-outer {
+            position: relative;
+            margin-bottom: 32px;
+            background: transparent;
+        }
+
+        .style-tabs-wrap {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 4px;
+            width: 100%;
+            background: transparent;
+            border: none;
+        }
+
+        .style-tabs-wrap::-webkit-scrollbar { display: none; }
+
+        .style-tabs {
+            display: flex;
+            gap: 12px;
+            padding: 4px 0;
+            padding-right: 40px;
+            width: fit-content;
+            min-width: 100%;
+            justify-content: center;
+            background: transparent;
+        }
+
+        .style-tab {
+            flex-shrink: 0;
+            padding: 12px 24px;
+            border-radius: 100px;
+            border: 1px solid var(--glass-border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .style-tab:hover {
+            color: var(--text-primary);
+            background: var(--surface-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .style-tab.active-tab {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow-strong);
+        }
+
+        .style-tab.active-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px var(--accent-glow-strong);
+        }
+
+        .style-tab .tab-icon {
+            margin-right: 6px;
+            font-size: 0.78rem;
+        }
+
+        [dir="rtl"] .style-tab .tab-icon {
+            margin-right: 0;
+            margin-left: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .style-tabs-outer {
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
+            }
+
+            .style-tabs {
+                min-width: auto;
+                width: max-content;
+                justify-content: flex-start;
+                padding: 4px 20px;
+                padding-right: 50px;
+                gap: 10px;
+            }
+
+            .style-tab {
+                padding: 10px 20px;
+                font-size: 0.76rem;
+            }
         }
 
         /* === MODAL === */
@@ -1947,138 +2110,6 @@
             padding-top: 40px;
         }
 
-        /* === STYLE TABS (Floating Glass Chips) === */
-        .style-tabs-outer {
-            position: relative;
-            margin-bottom: 32px;
-            background: transparent !important;
-        }
-
-        .style-tabs-outer::before,
-        .style-tabs-outer::after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .style-tabs-wrap {
-            position: relative;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding-bottom: 4px;
-            width: 100%;
-            background: transparent !important;
-            border: none !important;
-            border-radius: 0;
-            box-shadow: none !important;
-        }
-
-        .style-tabs-wrap::-webkit-scrollbar { display: none; }
-        .style-tabs-wrap::-webkit-scrollbar-corner { background: transparent !important; }
-        .style-tabs-wrap::-webkit-scrollbar-track { background: transparent !important; }
-
-        .style-tabs-wrap::before,
-        .style-tabs-wrap::after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .style-tabs {
-            display: flex;
-            gap: 12px;
-            padding: 4px 0;
-            padding-right: 20px;
-            width: fit-content;
-            min-width: 100%;
-            justify-content: center;
-            background: transparent !important;
-        }
-
-        .style-tabs::before,
-        .style-tabs::after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .style-tab {
-            flex-shrink: 0;
-            padding: 12px 24px;
-            border-radius: 100px;
-            border: 1px solid var(--glass-border);
-            background: var(--surface);
-            color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-            position: relative;
-            letter-spacing: 0.01em;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .style-tab::before,
-        .style-tab::after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .style-tab:hover {
-            color: var(--text-primary);
-            background: var(--surface-hover);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .style-tab.active-tab {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px var(--accent-glow-strong);
-        }
-
-        .style-tab.active-tab:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px var(--accent-glow-strong);
-        }
-
-        .style-tab .tab-icon {
-            margin-right: 6px;
-            font-size: 0.78rem;
-        }
-
-        [dir="rtl"] .style-tab .tab-icon {
-            margin-right: 0;
-            margin-left: 6px;
-        }
-
-        @media (max-width: 768px) {
-            .style-tabs-outer {
-                margin-left: -20px;
-                margin-right: -20px;
-                width: calc(100% + 40px);
-            }
-
-            .style-tabs {
-                min-width: auto;
-                width: max-content;
-                justify-content: flex-start;
-                padding: 4px 20px;
-                padding-right: 50px;
-                gap: 10px;
-            }
-
-            .style-tab {
-                padding: 10px 20px;
-                font-size: 0.76rem;
-            }
-        }
-
         /* === SCROLL ANIMATIONS === */
         .fade-up {
             opacity: 0;
@@ -2304,7 +2335,7 @@
                     <div class="category-icon"><i class="fas fa-cube"></i></div>
                     <h3 data-i18n="cat_3d">3D Style</h3>
                     <p data-i18n="cat_3d_desc">Immersive 3D motion graphics and visual effects</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_projects">3 Projects</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming Soon</span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
 
@@ -2312,7 +2343,7 @@
                     <div class="category-icon"><i class="fas fa-layer-group"></i></div>
                     <h3 data-i18n="cat_collage">Collage Style</h3>
                     <p data-i18n="cat_collage_desc">Layered compositions blending textures and footage</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_projects">3 Projects</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming Soon</span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
 
@@ -2320,7 +2351,7 @@
                     <div class="category-icon"><i class="fas fa-scroll"></i></div>
                     <h3 data-i18n="cat_paper">Paper Texture</h3>
                     <p data-i18n="cat_paper_desc">Organic, tactile edits with vintage paper overlays</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_projects">3 Projects</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming Soon</span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
 
@@ -2328,7 +2359,7 @@
                     <div class="category-icon"><i class="fas fa-mobile-screen-button"></i></div>
                     <h3 data-i18n="cat_ui">UI Style</h3>
                     <p data-i18n="cat_ui_desc">Sleek app & web interface animations and walkthroughs</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_projects">3 Projects</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming Soon</span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
@@ -2347,25 +2378,32 @@
                 <div class="style-tabs-outer">
                     <div class="style-tabs-wrap" id="styleTabsWrap">
                         <div class="style-tabs" id="styleTabs">
-                            <button class="style-tab" data-tab="minimal" onclick="switchTab('minimal')">
+                            <button class="style-tab" data-tab="minimal" onclick="switchTab('minimal', event)">
                                 <i class="fas fa-minimize tab-icon"></i><span data-i18n-tab="minimal">Minimal</span>
                             </button>
-                            <button class="style-tab" data-tab="3d" onclick="switchTab('3d')">
+                            <button class="style-tab" data-tab="3d" onclick="switchTab('3d', event)">
                                 <i class="fas fa-cube tab-icon"></i><span data-i18n-tab="3d">3D</span>
                             </button>
-                            <button class="style-tab" data-tab="collage" onclick="switchTab('collage')">
+                            <button class="style-tab" data-tab="collage" onclick="switchTab('collage', event)">
                                 <i class="fas fa-layer-group tab-icon"></i><span data-i18n-tab="collage">Collage</span>
                             </button>
-                            <button class="style-tab" data-tab="paper" onclick="switchTab('paper')">
+                            <button class="style-tab" data-tab="paper" onclick="switchTab('paper', event)">
                                 <i class="fas fa-scroll tab-icon"></i><span data-i18n-tab="paper">Paper</span>
                             </button>
-                            <button class="style-tab" data-tab="ui" onclick="switchTab('ui')">
+                            <button class="style-tab" data-tab="ui" onclick="switchTab('ui', event)">
                                 <i class="fas fa-mobile-screen-button tab-icon"></i><span data-i18n-tab="ui">UI Style</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="projects-grid" id="projectsGrid"></div>
+                <div class="projects-grid" id="projectsGrid">
+                    <div id="empty-msg" style="display:none; grid-column: 1 / -1; text-align: center; padding: 80px 40px; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; color: #C2B280;">
+                        <i class="fas fa-hourglass-start" style="font-size: 3rem; display: block; margin-bottom: 20px; opacity: 0.7;"></i>
+                        <h3 class="msg-en" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; color: #C2B280;">New masterpieces in this style are coming soon...</h3>
+                        <h3 class="msg-ar" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; color: #C2B280; display: none;">أعمال إبداعية جديدة بهذا الستايل قادمة قريباً...</h3>
+                        <p class="msg-sub" style="font-size: 0.88rem; color: rgba(255,255,255,0.35);">Stay tuned for more creative work</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2642,51 +2680,25 @@
         // =============================================
         const translations = {
             en: {
-                // Dock
-                dock_home: 'Home',
-                dock_portfolio: 'Portfolio',
-                dock_ethics: 'Ethics',
-                dock_workflow: 'Workflow',
-                dock_pricing: 'Pricing',
-                dock_contact: 'Contact',
-                dock_lang: 'العربية',
-                dock_theme: 'Dark Mode',
-                dock_theme_light: 'Light Mode',
-
-                // Hero
+                dock_home: 'Home', dock_portfolio: 'Portfolio', dock_ethics: 'Ethics',
+                dock_workflow: 'Workflow', dock_pricing: 'Pricing', dock_contact: 'Contact',
+                dock_lang: 'العربية', dock_theme: 'Dark Mode', dock_theme_light: 'Light Mode',
                 hero_label: 'Available for Projects',
                 hero_title: 'Professional Video Editor & Visual Storyteller',
                 hero_bio: "I'm a professional video editor with a refined eye for detail and a deep passion for visual storytelling. I work exclusively with DaVinci Resolve — specializing in cinematic editing, color grading, Fusion effects, sound design, and vertical editing — transforming raw footage into powerful, emotionally compelling content.",
-                skill_1: 'DaVinci Resolve',
-                skill_2: 'Color Grading',
-                skill_3: 'Fusion Effects',
-                skill_4: 'Sound Design',
-                skill_5: 'Vertical Editing',
-                hero_cta_work: 'View My Work',
-                hero_cta_contact: 'Get in Touch',
-                badge_1: 'DaVinci Resolve',
-                badge_2: 'Color Grading',
-                badge_3: 'Fusion Effects',
-
-                // Portfolio
-                portfolio_title: 'Selected Work',
-                portfolio_subtitle: 'Explore my projects by style category',
-                cat_minimal: 'Minimal Style',
-                cat_minimal_desc: 'Clean, understated edits that let the story breathe',
-                cat_3d: '3D Style',
-                cat_3d_desc: 'Immersive 3D motion graphics and visual effects',
-                cat_collage: 'Collage Style',
-                cat_collage_desc: 'Layered compositions blending textures and footage',
-                cat_paper: 'Paper Texture',
-                cat_paper_desc: 'Organic, tactile edits with vintage paper overlays',
-                cat_ui: 'UI Style',
-                cat_ui_desc: 'Sleek app & web interface animations and walkthroughs',
-                cat_projects: '3 Projects',
+                skill_1: 'DaVinci Resolve', skill_2: 'Color Grading', skill_3: 'Fusion Effects',
+                skill_4: 'Sound Design', skill_5: 'Vertical Editing',
+                hero_cta_work: 'View My Work', hero_cta_contact: 'Get in Touch',
+                badge_1: 'DaVinci Resolve', badge_2: 'Color Grading', badge_3: 'Fusion Effects',
+                portfolio_title: 'Selected Work', portfolio_subtitle: 'Explore my projects by style category',
+                cat_minimal: 'Minimal Style', cat_minimal_desc: 'Clean, understated edits that let the story breathe',
+                cat_3d: '3D Style', cat_3d_desc: 'Immersive 3D motion graphics and visual effects',
+                cat_collage: 'Collage Style', cat_collage_desc: 'Layered compositions blending textures and footage',
+                cat_paper: 'Paper Texture', cat_paper_desc: 'Organic, tactile edits with vintage paper overlays',
+                cat_ui: 'UI Style', cat_ui_desc: 'Sleek app & web interface animations and walkthroughs',
+                cat_projects: '3 Projects', cat_coming_soon: 'Coming Soon',
                 back_btn: 'Back to Dashboard',
-
-                // Ethics
-                ethics_badge: 'Creative Standards',
-                ethics_title: 'My Work Ethics',
+                ethics_badge: 'Creative Standards', ethics_title: 'My Work Ethics',
                 ethics_subtitle: 'Clear creative policies that guide every project I take on',
                 ethics_1_title: 'Halal Audio Only',
                 ethics_1_desc: "No musical instruments. I use high-quality acapella, nature sounds, or 'Halal Beats' (vocal percussion) for rhythm.",
@@ -2697,125 +2709,58 @@
                 ethics_4_title: 'Sharia-Compliant Editing',
                 ethics_4_desc: 'All content is curated to align with Islamic principles, ensuring your message is ethical and impactful.',
                 ethics_tag: 'Strictly Enforced',
-
-                // Workflow
-                workflow_badge: 'How It Works',
-                workflow_title: 'My Workflow',
+                workflow_badge: 'How It Works', workflow_title: 'My Workflow',
                 workflow_subtitle: 'A streamlined process from raw footage to final masterpiece',
-                wf_1_title: 'Brief & Files',
-                wf_1_desc: 'Send me your raw footage and a clear description of your vision via Google Drive or WeTransfer.',
-                wf_1_tag: 'You Send',
-                wf_2_title: 'The Magic (DaVinci)',
-                wf_2_desc: 'I import files into DaVinci Resolve, handle cuts, color grading, and sound design strictly following Sharia guidelines.',
-                wf_2_tag: 'I Create',
-                wf_3_title: 'Review & Refine',
-                wf_3_desc: 'You receive a draft. We discuss any tweaks or adjustments needed to make it perfect.',
-                wf_3_tag: 'We Collaborate',
-                wf_4_title: 'Final Delivery',
-                wf_4_desc: 'Receive your high-quality, polished video ready to go viral on Instagram or TikTok.',
-                wf_4_tag: 'You Launch',
-
-                // Pricing
-                pricing_badge: 'Investment',
-                pricing_title: 'Payment & Pricing',
+                wf_1_title: 'Brief & Files', wf_1_desc: 'Send me your raw footage and a clear description of your vision via Google Drive or WeTransfer.', wf_1_tag: 'You Send',
+                wf_2_title: 'The Magic (DaVinci)', wf_2_desc: 'I import files into DaVinci Resolve, handle cuts, color grading, and sound design strictly following Sharia guidelines.', wf_2_tag: 'I Create',
+                wf_3_title: 'Review & Refine', wf_3_desc: 'You receive a draft. We discuss any tweaks or adjustments needed to make it perfect.', wf_3_tag: 'We Collaborate',
+                wf_4_title: 'Final Delivery', wf_4_desc: 'Receive your high-quality, polished video ready to go viral on Instagram or TikTok.', wf_4_tag: 'You Launch',
+                pricing_badge: 'Investment', pricing_title: 'Payment & Pricing',
                 pricing_subtitle: 'Transparent pricing with flexible payment options',
                 payment_methods_title: 'Accepted Payment Methods',
-                pay_1_title: 'Direct Bank Transfer',
-                pay_1_desc: 'Secure Local / International Transfer',
-                pay_2_title: 'Wise (TransferWise)',
-                pay_2_desc: 'Best for International Clients (Low Fees)',
-                pay_3_title: 'Crypto (USDT)',
-                pay_3_desc: 'Fast & Low Transaction Fees',
+                pay_1_title: 'Direct Bank Transfer', pay_1_desc: 'Secure Local / International Transfer',
+                pay_2_title: 'Wise (TransferWise)', pay_2_desc: 'Best for International Clients (Low Fees)',
+                pay_3_title: 'Crypto (USDT)', pay_3_desc: 'Fast & Low Transaction Fees',
                 pricing_packages_title: 'Standard Pricing',
-                tier_starter: 'Starter',
-                tier_pro: 'Professional',
-                tier_enterprise: 'Enterprise',
-                pkg_1_title: 'Basic Reel',
-                pkg_2_title: 'Pro Edit',
-                pkg_3_title: 'Monthly Retainer',
-                per_video: '/ Video',
-                per_month: '/ Month',
-                most_popular: 'Most Popular',
-                pkg_1_f1: 'Simple Cuts & Transitions',
-                pkg_1_f2: 'Captions & Text Overlays',
-                pkg_1_f3: 'Stock Music (Halal)',
-                pkg_1_f4: '1 Revision Round',
-                pkg_1_f5: 'Vertical Format (9:16)',
-                pkg_2_f1: 'Advanced Transitions & Effects',
-                pkg_2_f2: 'Professional Sound Design',
-                pkg_2_f3: 'Cinematic Color Grading',
-                pkg_2_f4: 'Fusion Motion Graphics',
-                pkg_2_f5: '2 Revision Rounds',
-                pkg_2_f6: 'Multiple Formats',
-                pkg_3_f1: '4–8 Videos per Month',
-                pkg_3_f2: 'Priority Support & Delivery',
-                pkg_3_f3: 'Monthly Strategy Call',
-                pkg_3_f4: 'Full Color Grading Suite',
-                pkg_3_f5: 'Unlimited Revisions',
-                pkg_3_f6: 'Dedicated Editor Access',
+                tier_starter: 'Starter', tier_pro: 'Professional', tier_enterprise: 'Enterprise',
+                pkg_1_title: 'Basic Reel', pkg_2_title: 'Pro Edit', pkg_3_title: 'Monthly Retainer',
+                per_video: '/ Video', per_month: '/ Month', most_popular: 'Most Popular',
+                pkg_1_f1: 'Simple Cuts & Transitions', pkg_1_f2: 'Captions & Text Overlays',
+                pkg_1_f3: 'Stock Music (Halal)', pkg_1_f4: '1 Revision Round', pkg_1_f5: 'Vertical Format (9:16)',
+                pkg_2_f1: 'Advanced Transitions & Effects', pkg_2_f2: 'Professional Sound Design',
+                pkg_2_f3: 'Cinematic Color Grading', pkg_2_f4: 'Fusion Motion Graphics',
+                pkg_2_f5: '2 Revision Rounds', pkg_2_f6: 'Multiple Formats',
+                pkg_3_f1: '4–8 Videos per Month', pkg_3_f2: 'Priority Support & Delivery',
+                pkg_3_f3: 'Monthly Strategy Call', pkg_3_f4: 'Full Color Grading Suite',
+                pkg_3_f5: 'Unlimited Revisions', pkg_3_f6: 'Dedicated Editor Access',
                 cta_talk: "Let's Talk",
-
-                // Modal
-                modal_title: "Let's Talk",
-                modal_subtitle: 'Have a project in mind? Drop me a message.',
-                form_name: 'Name',
-                form_name_ph: 'Your name',
-                form_email: 'Email',
-                form_email_ph: 'your@email.com',
-                form_message: 'Message',
-                form_message_ph: 'Tell me about your project...',
+                modal_title: "Let's Talk", modal_subtitle: 'Have a project in mind? Drop me a message.',
+                form_name: 'Name', form_name_ph: 'Your name',
+                form_email: 'Email', form_email_ph: 'your@email.com',
+                form_message: 'Message', form_message_ph: 'Tell me about your project...',
                 form_submit: 'Send Message',
-
-                // Footer
                 footer: '© 2024 <span class="footer-accent">Fahym fx</span> — All rights reserved. Crafted with precision.'
             },
-
             ar: {
-                // Dock
-                dock_home: 'الرئيسية',
-                dock_portfolio: 'أعمالي',
-                dock_ethics: 'أخلاقيات',
-                dock_workflow: 'سير العمل',
-                dock_pricing: 'الأسعار',
-                dock_contact: 'تواصل',
-                dock_lang: 'English',
-                dock_theme: 'الوضع الداكن',
-                dock_theme_light: 'الوضع الفاتح',
-
-                // Hero
+                dock_home: 'الرئيسية', dock_portfolio: 'أعمالي', dock_ethics: 'أخلاقيات',
+                dock_workflow: 'سير العمل', dock_pricing: 'الأسعار', dock_contact: 'تواصل',
+                dock_lang: 'English', dock_theme: 'الوضع الداكن', dock_theme_light: 'الوضع الفاتح',
                 hero_label: 'متاح للمشاريع',
                 hero_title: 'مونتير فيديو محترف وراوي قصص بصرية',
                 hero_bio: 'أنا مونتير فيديو محترف بعين دقيقة للتفاصيل وشغف عميق بالسرد البصري. أعمل حصرياً ببرنامج دافينشي ريزولف — متخصص في المونتاج السينمائي، تصحيح الألوان، مؤثرات فيوجن، التصميم الصوتي، والمونتاج العمودي — أحوّل اللقطات الخام إلى محتوى قوي ومؤثر عاطفياً.',
-                skill_1: 'دافينشي ريزولف',
-                skill_2: 'تصحيح الألوان',
-                skill_3: 'مؤثرات فيوجن',
-                skill_4: 'تصميم صوتي',
-                skill_5: 'مونتاج عمودي',
-                hero_cta_work: 'شاهد أعمالي',
-                hero_cta_contact: 'تواصل معي',
-                badge_1: 'دافينشي ريزولف',
-                badge_2: 'تصحيح الألوان',
-                badge_3: 'مؤثرات فيوجن',
-
-                // Portfolio
-                portfolio_title: 'أعمال مختارة',
-                portfolio_subtitle: 'استكشف مشاريعي حسب الأسلوب',
-                cat_minimal: 'الأسلوب البسيط',
-                cat_minimal_desc: 'مونتاج نظيف وهادئ يترك المجال للقصة',
-                cat_3d: 'أسلوب ثلاثي الأبعاد',
-                cat_3d_desc: 'رسوم متحركة ومؤثرات بصرية ثلاثية الأبعاد',
-                cat_collage: 'أسلوب الكولاج',
-                cat_collage_desc: 'تركيبات متعددة الطبقات تمزج بين النصوص واللقطات',
-                cat_paper: 'نسيج الورق',
-                cat_paper_desc: 'مونتاج عضوي بتراكبات ورقية عتيقة',
-                cat_ui: 'أسلوب واجهات',
-                cat_ui_desc: 'رسوم تطبيقات وواجهات ويب أنيقة وعروض تفاعلية',
-                cat_projects: '٣ مشاريع',
+                skill_1: 'دافينشي ريزولف', skill_2: 'تصحيح الألوان', skill_3: 'مؤثرات فيوجن',
+                skill_4: 'تصميم صوتي', skill_5: 'مونتاج عمودي',
+                hero_cta_work: 'شاهد أعمالي', hero_cta_contact: 'تواصل معي',
+                badge_1: 'دافينشي ريزولف', badge_2: 'تصحيح الألوان', badge_3: 'مؤثرات فيوجن',
+                portfolio_title: 'أعمال مختارة', portfolio_subtitle: 'استكشف مشاريعي حسب الأسلوب',
+                cat_minimal: 'الأسلوب البسيط', cat_minimal_desc: 'مونتاج نظيف وهادئ يترك المجال للقصة',
+                cat_3d: 'أسلوب ثلاثي الأبعاد', cat_3d_desc: 'رسوم متحركة ومؤثرات بصرية ثلاثية الأبعاد',
+                cat_collage: 'أسلوب الكولاج', cat_collage_desc: 'تركيبات متعددة الطبقات تمزج بين النصوص واللقطات',
+                cat_paper: 'نسيج الورق', cat_paper_desc: 'مونتاج عضوي بتراكبات ورقية عتيقة',
+                cat_ui: 'أسلوب واجهات', cat_ui_desc: 'رسوم تطبيقات وواجهات ويب أنيقة وعروض تفاعلية',
+                cat_projects: '٣ مشاريع', cat_coming_soon: 'قريباً',
                 back_btn: 'العودة للوحة التحكم',
-
-                // Ethics
-                ethics_badge: 'المعايير الإبداعية',
-                ethics_title: 'أخلاقيات العمل',
+                ethics_badge: 'المعايير الإبداعية', ethics_title: 'أخلاقيات العمل',
                 ethics_subtitle: 'سياسات إبداعية واضحة تُوجّه كل مشروع أتولّاه',
                 ethics_1_title: 'صوتيات حلال فقط',
                 ethics_1_desc: 'بدون آلات موسيقية. أستخدم الأكابيلا عالية الجودة، أصوات الطبيعة، أو إيقاعات حلال (إيقاع صوتي) للنغم.',
@@ -2826,170 +2771,106 @@
                 ethics_4_title: 'مونتاج متوافق مع الشريعة',
                 ethics_4_desc: 'كل المحتوى مُنسّق ليتوافق مع المبادئ الإسلامية، لضمان أن رسالتك أخلاقية ومؤثرة.',
                 ethics_tag: 'مُطبّق بصرامة',
-
-                // Workflow
-                workflow_badge: 'كيف يعمل',
-                workflow_title: 'سير العمل',
+                workflow_badge: 'كيف يعمل', workflow_title: 'سير العمل',
                 workflow_subtitle: 'عملية مُنظّمة من اللقطات الخام إلى التحفة النهائية',
-                wf_1_title: 'الملخص والملفات',
-                wf_1_desc: 'أرسل لي لقطاتك الخام ووصفاً واضحاً لرؤيتك عبر Google Drive أو WeTransfer.',
-                wf_1_tag: 'أنت ترسل',
-                wf_2_title: 'السحر (دافينشي)',
-                wf_2_desc: 'أستورد الملفات في دافينشي ريزولف، أتعامل مع القص، تصحيح الألوان، والتصميم الصوتي وفقاً لإرشادات الشريعة.',
-                wf_2_tag: 'أنا أبدع',
-                wf_3_title: 'المراجعة والتحسين',
-                wf_3_desc: 'تستلم مسودة. نناقش أي تعديلات أو تحسينات مطلوبة لجعلها مثالية.',
-                wf_3_tag: 'نتعاون',
-                wf_4_title: 'التسليم النهائي',
-                wf_4_desc: 'استلم الفيديو عالي الجودة والمصقول جاهزاً للانتشار على إنستغرام أو تيك توك.',
-                wf_4_tag: 'أنت تُطلق',
-
-                // Pricing
-                pricing_badge: 'الاستثمار',
-                pricing_title: 'الدفع والأسعار',
+                wf_1_title: 'الملخص والملفات', wf_1_desc: 'أرسل لي لقطاتك الخام ووصفاً واضحاً لرؤيتك عبر Google Drive أو WeTransfer.', wf_1_tag: 'أنت ترسل',
+                wf_2_title: 'السحر (دافينشي)', wf_2_desc: 'أستورد الملفات في دافينشي ريزولف، أتعامل مع القص، تصحيح الألوان، والتصميم الصوتي وفقاً لإرشادات الشريعة.', wf_2_tag: 'أنا أبدع',
+                wf_3_title: 'المراجعة والتحسين', wf_3_desc: 'تستلم مسودة. نناقش أي تعديلات أو تحسينات مطلوبة لجعلها مثالية.', wf_3_tag: 'نتعاون',
+                wf_4_title: 'التسليم النهائي', wf_4_desc: 'استلم الفيديو عالي الجودة والمصقول جاهزاً للانتشار على إنستغرام أو تيك توك.', wf_4_tag: 'أنت تُطلق',
+                pricing_badge: 'الاستثمار', pricing_title: 'الدفع والأسعار',
                 pricing_subtitle: 'أسعار شفافة مع خيارات دفع مرنة',
                 payment_methods_title: 'طرق الدفع المقبولة',
-                pay_1_title: 'تحويل بنكي مباشر',
-                pay_1_desc: 'تحويل محلي / دولي آمن',
-                pay_2_title: 'وايز (TransferWise)',
-                pay_2_desc: 'الأفضل للعملاء الدوليين (رسوم منخفضة)',
-                pay_3_title: 'عملات رقمية (USDT)',
-                pay_3_desc: 'سريع ورسوم معاملات منخفضة',
+                pay_1_title: 'تحويل بنكي مباشر', pay_1_desc: 'تحويل محلي / دولي آمن',
+                pay_2_title: 'وايز (TransferWise)', pay_2_desc: 'الأفضل للعملاء الدوليين (رسوم منخفضة)',
+                pay_3_title: 'عملات رقمية (USDT)', pay_3_desc: 'سريع ورسوم معاملات منخفضة',
                 pricing_packages_title: 'الأسعار القياسية',
-                tier_starter: 'مبتدئ',
-                tier_pro: 'احترافي',
-                tier_enterprise: 'مؤسسات',
-                pkg_1_title: 'ريل أساسي',
-                pkg_2_title: 'مونتاج احترافي',
-                pkg_3_title: 'اشتراك شهري',
-                per_video: '/ فيديو',
-                per_month: '/ شهر',
-                most_popular: 'الأكثر طلباً',
-                pkg_1_f1: 'قص وانتقالات بسيطة',
-                pkg_1_f2: 'ترجمة ونصوص متراكبة',
-                pkg_1_f3: 'موسيقى جاهزة (حلال)',
-                pkg_1_f4: 'جولة مراجعة واحدة',
-                pkg_1_f5: 'صيغة عمودية (9:16)',
-                pkg_2_f1: 'انتقالات ومؤثرات متقدمة',
-                pkg_2_f2: 'تصميم صوتي احترافي',
-                pkg_2_f3: 'تصحيح ألوان سينمائي',
-                pkg_2_f4: 'رسوم متحركة فيوجن',
-                pkg_2_f5: 'جولتا مراجعة',
-                pkg_2_f6: 'صيغ متعددة',
-                pkg_3_f1: '٤-٨ فيديوهات شهرياً',
-                pkg_3_f2: 'دعم وتسليم بأولوية',
-                pkg_3_f3: 'مكالمة استراتيجية شهرية',
-                pkg_3_f4: 'حزمة تصحيح ألوان كاملة',
-                pkg_3_f5: 'مراجعات غير محدودة',
-                pkg_3_f6: 'مونتير مخصص',
+                tier_starter: 'مبتدئ', tier_pro: 'احترافي', tier_enterprise: 'مؤسسات',
+                pkg_1_title: 'ريل أساسي', pkg_2_title: 'مونتاج احترافي', pkg_3_title: 'اشتراك شهري',
+                per_video: '/ فيديو', per_month: '/ شهر', most_popular: 'الأكثر طلباً',
+                pkg_1_f1: 'قص وانتقالات بسيطة', pkg_1_f2: 'ترجمة ونصوص متراكبة',
+                pkg_1_f3: 'موسيقى جاهزة (حلال)', pkg_1_f4: 'جولة مراجعة واحدة', pkg_1_f5: 'صيغة عمودية (9:16)',
+                pkg_2_f1: 'انتقالات ومؤثرات متقدمة', pkg_2_f2: 'تصميم صوتي احترافي',
+                pkg_2_f3: 'تصحيح ألوان سينمائي', pkg_2_f4: 'رسوم متحركة فيوجن',
+                pkg_2_f5: 'جولتا مراجعة', pkg_2_f6: 'صيغ متعددة',
+                pkg_3_f1: '٤-٨ فيديوهات شهرياً', pkg_3_f2: 'دعم وتسليم بأولوية',
+                pkg_3_f3: 'مكالمة استراتيجية شهرية', pkg_3_f4: 'حزمة تصحيح ألوان كاملة',
+                pkg_3_f5: 'مراجعات غير محدودة', pkg_3_f6: 'مونتير مخصص',
                 cta_talk: 'تواصل معي',
-
-                // Modal
-                modal_title: 'تواصل معي',
-                modal_subtitle: 'لديك مشروع في ذهنك؟ أرسل لي رسالة.',
-                form_name: 'الاسم',
-                form_name_ph: 'اسمك',
-                form_email: 'البريد الإلكتروني',
-                form_email_ph: 'بريدك@email.com',
-                form_message: 'الرسالة',
-                form_message_ph: 'أخبرني عن مشروعك...',
+                modal_title: 'تواصل معي', modal_subtitle: 'لديك مشروع في ذهنك؟ أرسل لي رسالة.',
+                form_name: 'الاسم', form_name_ph: 'اسمك',
+                form_email: 'البريد الإلكتروني', form_email_ph: 'بريدك@email.com',
+                form_message: 'الرسالة', form_message_ph: 'أخبرني عن مشروعك...',
                 form_submit: 'إرسال الرسالة',
-
-                // Footer
                 footer: '© 2024 <span class="footer-accent">Fahym fx</span> — جميع الحقوق محفوظة. صُنع بدقة.'
             }
         };
 
-        // Project data (bilingual)
+        // Project data — ONLY real projects
         const projectsData = {
             en: {
                 minimal: {
                     title: 'Minimal Style',
                     projects: [
-                        { title: 'The Art of Less', desc: 'A high-end minimalist edit focusing on visual rhythm, clean cuts, and elegant pacing. Designed for premium brands.', icon: 'fas fa-video', tag: 'Minimal', youtubeEmbed: 'https://www.youtube.com/embed/xfB8dNBZf3Q' },
-                        { title: 'Clean Cuts Reel', desc: 'A fast, clean, halal-friendly reel focused on sharp cuts, clear messaging, and social-first pacing.', icon: 'fas fa-scissors', tag: 'Minimal', youtubeEmbed: 'https://www.youtube.com/embed/ALWC3xZSzbQ' },
-                        { title: 'Pure Essence', desc: 'A minimalist storytelling piece focusing on raw emotion and high-quality visuals without any distractions.', icon: 'fas fa-film', tag: 'Minimal', youtubeEmbed: 'https://www.youtube.com/embed/PYUU2Z4QPCw' },
-                        { title: 'Monochrome', desc: 'Black & white cinematic short film', icon: 'fas fa-film', tag: 'Minimal' },
-                        { title: 'Stillness', desc: 'Minimal travel documentary', icon: 'fas fa-clapperboard', tag: 'Minimal' }
+                        {
+                            title: 'The Art of Less',
+                            desc: 'A high-end minimalist edit focusing on visual rhythm and clean cuts, fully branded under Fahym fx.',
+                            tag: 'Minimal',
+                            youtubeEmbed: 'https://www.youtube.com/embed/xfB8dNBZf3Q'
+                        },
+                        {
+                            title: 'Clean Cuts Reel',
+                            desc: 'A fast, clean, halal-friendly reel focused on sharp cuts, clear messaging, and social-first pacing.',
+                            tag: 'Minimal',
+                            youtubeEmbed: 'https://www.youtube.com/embed/ALWC3xZSzbQ'
+                        },
+                        {
+                            title: 'Pure Essence',
+                            desc: 'A minimalist storytelling piece focusing on raw emotion and high-quality visuals without any distractions.',
+                            tag: 'Minimal',
+                            youtubeEmbed: 'https://www.youtube.com/embed/PYUU2Z4QPCw'
+                        }
                     ]
                 },
-                '3d': {
-                    title: '3D Style',
-                    projects: [
-                        { title: 'Dimension Shift', desc: '3D motion graphics showcase reel', icon: 'fas fa-cube', tag: '3D Style' },
-                        { title: 'Crystal Flow', desc: '3D product visualization ad', icon: 'fas fa-gem', tag: '3D Style' },
-                        { title: 'Neon Horizons', desc: 'Futuristic 3D brand identity', icon: 'fas fa-vr-cardboard', tag: '3D Style' }
-                    ]
-                },
-                collage: {
-                    title: 'Collage Style',
-                    projects: [
-                        { title: 'Fragments', desc: 'Collage-style music video', icon: 'fas fa-layer-group', tag: 'Collage' },
-                        { title: 'Memory Lane', desc: 'Collage-style wedding highlight reel', icon: 'fas fa-images', tag: 'Collage' },
-                        { title: 'Patchwork', desc: 'Mixed media social campaign', icon: 'fas fa-object-ungroup', tag: 'Collage' }
-                    ]
-                },
-                paper: {
-                    title: 'Paper Texture',
-                    projects: [
-                        { title: 'The Artisan', desc: 'Paper texture documentary on craftsmanship', icon: 'fas fa-scroll', tag: 'Paper' },
-                        { title: 'Heritage', desc: 'Vintage paper-textured brand story', icon: 'fas fa-newspaper', tag: 'Paper' },
-                        { title: 'Old Letters', desc: 'Nostalgic short film with analog feel', icon: 'fas fa-envelope-open-text', tag: 'Paper' }
-                    ]
-                },
-                ui: {
-                    title: 'UI Style',
-                    projects: [
-                        { title: 'SaaS Promo', desc: 'Animated SaaS product launch video', icon: 'fas fa-window-maximize', tag: 'UI Style' },
-                        { title: 'Mobile App Walkthrough', desc: 'Step-by-step mobile app feature showcase', icon: 'fas fa-mobile-screen-button', tag: 'UI Style' },
-                        { title: 'Dashboard Animation', desc: 'Dynamic analytics dashboard reveal', icon: 'fas fa-chart-line', tag: 'UI Style' }
-                    ]
-                }
+                '3d':      { title: '3D Style',      projects: [] },
+                collage:   { title: 'Collage Style', projects: [] },
+                paper:     { title: 'Paper Texture', projects: [] },
+                ui:        { title: 'UI Style',       projects: [] }
             },
             ar: {
                 minimal: {
                     title: 'الأسلوب البسيط',
                     projects: [
-                        { title: 'فن البساطة', desc: 'مونتاج بأسلوب بسيط وراقي يركز على الإيقاع البصري، القصات النظيفة، والانسيابية الأنيقة. مصمم للعلامات التجارية الفاخرة.', icon: 'fas fa-video', tag: 'بسيط', youtubeEmbed: 'https://www.youtube.com/embed/xfB8dNBZf3Q' },
-                        { title: 'ريل بالقصّات النظيفة', desc: 'ريل سريع وبسيط، حلال 100٪، يركز على قصّات حادّة، رسالة واضحة، وإيقاع مناسب لمنصات التواصل الاجتماعي.', icon: 'fas fa-scissors', tag: 'بسيط', youtubeEmbed: 'https://www.youtube.com/embed/ALWC3xZSzbQ' },
-                        { title: 'جوهر النقاء', desc: 'قطعة سردية بسيطة تركز على العاطفة الخام والبصريات عالية الجودة دون أي مشتتات.', icon: 'fas fa-film', tag: 'بسيط', youtubeEmbed: 'https://www.youtube.com/embed/PYUU2Z4QPCw' },
-                        { title: 'أحادي اللون', desc: 'فيلم سينمائي قصير بالأبيض والأسود', icon: 'fas fa-film', tag: 'بسيط' },
-                        { title: 'سكون', desc: 'وثائقي سفر بأسلوب بسيط', icon: 'fas fa-clapperboard', tag: 'بسيط' }
+                        {
+                            title: 'فن البساطة',
+                            desc: 'مونتاج بأسلوب بسيط وراقي يركز على الإيقاع البصري والقصات النظيفة، يحمل الهوية الرسمية لـ Fahym fx.',
+                            tag: 'بسيط',
+                            youtubeEmbed: 'https://www.youtube.com/embed/xfB8dNBZf3Q'
+                        },
+                        {
+                            title: 'ريل بالقصّات النظيفة',
+                            desc: 'ريل سريع وبسيط، حلال 100٪، يركز على قصّات حادّة، رسالة واضحة، وإيقاع مناسب لمنصات التواصل الاجتماعي.',
+                            tag: 'بسيط',
+                            youtubeEmbed: 'https://www.youtube.com/embed/ALWC3xZSzbQ'
+                        },
+                        {
+                            title: 'جوهر النقاء',
+                            desc: 'قطعة سردية بسيطة تركز على العاطفة الخام والبصريات عالية الجودة دون أي مشتتات.',
+                            tag: 'بسيط',
+                            youtubeEmbed: 'https://www.youtube.com/embed/PYUU2Z4QPCw'
+                        }
                     ]
                 },
-                '3d': {
-                    title: 'أسلوب ثلاثي الأبعاد',
-                    projects: [
-                        { title: 'تحوّل الأبعاد', desc: 'عرض رسوم متحركة ثلاثية الأبعاد', icon: 'fas fa-cube', tag: '3D' },
-                        { title: 'تدفق كريستالي', desc: 'إعلان تصور منتج ثلاثي الأبعاد', icon: 'fas fa-gem', tag: '3D' },
-                        { title: 'آفاق نيون', desc: 'هوية علامة تجارية مستقبلية ثلاثية الأبعاد', icon: 'fas fa-vr-cardboard', tag: '3D' }
-                    ]
-                },
-                collage: {
-                    title: 'أسلوب الكولاج',
-                    projects: [
-                        { title: 'شظايا', desc: 'فيديو كليب بأسلوب الكولاج', icon: 'fas fa-layer-group', tag: 'كولاج' },
-                        { title: 'ذكريات', desc: 'ملخص حفل زفاف بأسلوب الكولاج', icon: 'fas fa-images', tag: 'كولاج' },
-                        { title: 'ترقيع', desc: 'حملة وسائط متعددة اجتماعية', icon: 'fas fa-object-ungroup', tag: 'كولاج' }
-                    ]
-                },
-                paper: {
-                    title: 'نسيج الورق',
-                    projects: [
-                        { title: 'الحرفي', desc: 'وثائقي بنسيج ورقي عن الحرف اليدوية', icon: 'fas fa-scroll', tag: 'ورقي' },
-                        { title: 'تراث', desc: 'قصة علامة تجارية بنسيج ورقي عتيق', icon: 'fas fa-newspaper', tag: 'ورقي' },
-                        { title: 'رسائل قديمة', desc: 'فيلم قصير حنيني بإحساس تناظري', icon: 'fas fa-envelope-open-text', tag: 'ورقي' }
-                    ]
-                },
-                ui: {
-                    title: 'أسلوب واجهات',
-                    projects: [
-                        { title: 'عرض منتج SaaS', desc: 'فيديو إطلاق منتج برمجي متحرك', icon: 'fas fa-window-maximize', tag: 'واجهات' },
-                        { title: 'جولة تطبيق موبايل', desc: 'عرض مميزات التطبيق خطوة بخطوة', icon: 'fas fa-mobile-screen-button', tag: 'واجهات' },
-                        { title: 'رسوم لوحة تحكم', desc: 'كشف ديناميكي للوحة تحليلات', icon: 'fas fa-chart-line', tag: 'واجهات' }
-                    ]
-                }
+                '3d':      { title: 'أسلوب ثلاثي الأبعاد', projects: [] },
+                collage:   { title: 'أسلوب الكولاج',       projects: [] },
+                paper:     { title: 'نسيج الورق',           projects: [] },
+                ui:        { title: 'أسلوب واجهات',         projects: [] }
             }
+        };
+
+        // Tab labels
+        const tabLabels = {
+            en: { minimal: 'Minimal', '3d': '3D', collage: 'Collage', paper: 'Paper', ui: 'UI Style' },
+            ar: { minimal: 'بسيط', '3d': 'ثلاثي الأبعاد', collage: 'كولاج', paper: 'ورقي', ui: 'واجهات' }
         };
 
         // =============================================
@@ -3001,64 +2882,50 @@
             currentLang = lang;
             const html = document.documentElement;
             const dict = translations[lang];
-
-            // Set dir and lang
             html.setAttribute('lang', lang === 'ar' ? 'ar' : 'en');
             html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
-            // Update all data-i18n elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (dict[key] !== undefined) {
-                    el.innerHTML = dict[key];
-                }
+                if (dict[key] !== undefined) el.innerHTML = dict[key];
             });
 
-            // Update all data-i18n-placeholder elements
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
-                if (dict[key] !== undefined) {
-                    el.setAttribute('placeholder', dict[key]);
-                }
+                if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
             });
 
-            // Update lang toggle button
-            const langLabel = document.getElementById('langLabel');
-            langLabel.textContent = lang === 'en' ? 'AR' : 'EN';
+            document.getElementById('langLabel').textContent = lang === 'en' ? 'AR' : 'EN';
 
-            // Update theme tooltip based on current theme
             const isDark = document.body.getAttribute('data-theme') === 'dark';
             const themeTooltipEl = document.querySelector('#themeToggle .dock-tooltip');
-            if (themeTooltipEl) {
-                themeTooltipEl.textContent = isDark ? dict.dock_theme : dict.dock_theme_light;
+            if (themeTooltipEl) themeTooltipEl.textContent = isDark ? dict.dock_theme : dict.dock_theme_light;
+
+            // Update empty message visibility
+            const emptyMsg = document.getElementById('empty-msg');
+            if (emptyMsg && emptyMsg.style.display !== 'none') {
+                const msgEn = emptyMsg.querySelector('.msg-en');
+                const msgAr = emptyMsg.querySelector('.msg-ar');
+                if (msgEn) msgEn.style.display = lang === 'en' ? 'block' : 'none';
+                if (msgAr) msgAr.style.display = lang === 'ar' ? 'block' : 'none';
             }
 
-            // Save preference
             localStorage.setItem('lang', lang);
-
-            // Update tab labels
             updateTabLabels();
 
-            // If projects view is showing, re-render it
             if (projectsView.classList.contains('active-view') && currentOpenCategory) {
                 showCategoryContent(currentOpenCategory);
             }
         }
 
         // =============================================
-        // PORTFOLIO: CATEGORY NAVIGATION
+        // PORTFOLIO NAVIGATION
         // =============================================
         const categoriesGrid = document.getElementById('categoriesGrid');
         const projectsView = document.getElementById('projectsView');
         const projectsGrid = document.getElementById('projectsGrid');
         const categoryTitle = document.getElementById('categoryTitle');
         let currentOpenCategory = null;
-
-        // Tab labels for bilingual support
-        const tabLabels = {
-            en: { minimal: 'Minimal', '3d': '3D', collage: 'Collage', paper: 'Paper', ui: 'UI Style' },
-            ar: { minimal: 'بسيط', '3d': 'ثلاثي الأبعاد', collage: 'كولاج', paper: 'ورقي', ui: 'واجهات' }
-        };
 
         function updateTabLabels() {
             document.querySelectorAll('[data-i18n-tab]').forEach(el => {
@@ -3072,68 +2939,82 @@
         function updateActiveTab(cat) {
             document.querySelectorAll('.style-tab').forEach(tab => {
                 tab.classList.remove('active-tab');
-                if (tab.getAttribute('data-tab') === cat) {
-                    tab.classList.add('active-tab');
-                }
+                if (tab.getAttribute('data-tab') === cat) tab.classList.add('active-tab');
             });
         }
 
         function showCategoryContent(cat) {
             const data = projectsData[currentLang][cat];
             if (!data) return;
+
             categoryTitle.textContent = data.title;
             updateActiveTab(cat);
             updateTabLabels();
 
-            let html = '';
-            data.projects.forEach((proj, i) => {
-                if (proj.youtubeEmbed) {
-                    html += `
-                    <div class="project-item" style="animation: slideIn 0.5s ${i * 0.1}s cubic-bezier(0.4,0,0.2,1) both;">
-                        <div class="vertical-video-wrapper">
-                            <iframe width="383" height="680" src="${proj.youtubeEmbed}" title="${proj.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                        <div class="project-info">
-                            <h3>${proj.title}</h3>
-                            <p>${proj.desc}</p>
-                            <span class="project-tag">${proj.tag}</span>
-                        </div>
-                    </div>
-                    `;
-                } else {
-                    html += `
-                    <div class="project-item" style="animation: slideIn 0.5s ${i * 0.1}s cubic-bezier(0.4,0,0.2,1) both;">
-                        <div class="project-thumb">
-                            <i class="${proj.icon} thumb-icon"></i>
-                            <div class="play-btn"><i class="fas fa-play"></i></div>
-                        </div>
-                        <div class="project-info">
-                            <h3>${proj.title}</h3>
-                            <p>${proj.desc}</p>
-                            <span class="project-tag">${proj.tag}</span>
-                        </div>
-                    </div>
-                    `;
-                }
-            });
-            projectsGrid.innerHTML = html;
+            const emptyMsg = document.getElementById('empty-msg');
+
+            if (data.projects.length === 0) {
+                // Show empty state — remove all project cards, show message
+                const existingCards = projectsGrid.querySelectorAll('.project-item');
+                existingCards.forEach(c => c.remove());
+                emptyMsg.style.display = 'block';
+                // Update language of message
+                const msgEn = emptyMsg.querySelector('.msg-en');
+                const msgAr = emptyMsg.querySelector('.msg-ar');
+                if (msgEn) msgEn.style.display = currentLang === 'en' ? 'block' : 'none';
+                if (msgAr) msgAr.style.display = currentLang === 'ar' ? 'block' : 'none';
+            } else {
+                // Hide empty state, render project cards
+                emptyMsg.style.display = 'none';
+                const existingCards = projectsGrid.querySelectorAll('.project-item');
+                existingCards.forEach(c => c.remove());
+
+                data.projects.forEach((proj, i) => {
+                    const card = document.createElement('div');
+                    card.className = 'project-item';
+                    card.style.animation = `slideIn 0.5s ${i * 0.1}s cubic-bezier(0.4,0,0.2,1) both`;
+
+                    if (proj.youtubeEmbed) {
+                        card.innerHTML = `
+                            <div class="vertical-video-wrapper">
+                                <iframe width="383" height="680" src="${proj.youtubeEmbed}" title="${proj.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="project-info">
+                                <h3>${proj.title}</h3>
+                                <p>${proj.desc}</p>
+                                <span class="project-tag">${proj.tag}</span>
+                            </div>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="project-thumb">
+                                <i class="${proj.icon || 'fas fa-film'} thumb-icon"></i>
+                                <div class="play-btn"><i class="fas fa-play"></i></div>
+                            </div>
+                            <div class="project-info">
+                                <h3>${proj.title}</h3>
+                                <p>${proj.desc}</p>
+                                <span class="project-tag">${proj.tag}</span>
+                            </div>
+                        `;
+                    }
+                    projectsGrid.appendChild(card);
+                });
+            }
         }
 
         function scrollActiveTabToCenter() {
             const container = document.getElementById('styleTabsWrap');
             const activeTab = document.querySelector('.style-tab.active-tab');
             if (!container || !activeTab) return;
-            
-            // Pure math: calculate exact scroll position to center the tab
             const scrollLeft = activeTab.offsetLeft - (container.clientWidth / 2) + (activeTab.clientWidth / 2);
             container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         }
 
-        function switchTab(cat) {
+        function switchTab(cat, e) {
             if (cat === currentOpenCategory) return;
             currentOpenCategory = cat;
 
-            // Fade out grid, switch content, fade in
             projectsGrid.style.opacity = '0';
             projectsGrid.style.transform = 'translateY(15px)';
 
@@ -3142,27 +3023,25 @@
                 projectsGrid.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                 projectsGrid.style.opacity = '1';
                 projectsGrid.style.transform = 'translateY(0)';
-                // Center the active tab after content switch
                 scrollActiveTabToCenter();
             }, 250);
 
-            setTimeout(() => {
-                projectsGrid.style.transition = '';
-            }, 700);
+            setTimeout(() => { projectsGrid.style.transition = ''; }, 700);
+
+            if (e && e.currentTarget) {
+                setTimeout(() => scrollActiveTabToCenter(), 350);
+            }
         }
 
         function showCategory(cat) {
             currentOpenCategory = cat;
             showCategoryContent(cat);
 
-            // Enter Focus Mode
             categoriesGrid.classList.add('fade-out');
             setTimeout(() => {
                 categoriesGrid.classList.add('hidden-view');
                 document.body.classList.add('focus-active');
-                projectsView.classList.add('active-view');
-                projectsView.classList.add('slide-in');
-                // Center the active tab after view is shown
+                projectsView.classList.add('active-view', 'slide-in');
                 scrollActiveTabToCenter();
             }, 400);
             setTimeout(() => {
@@ -3172,14 +3051,12 @@
 
         function backToCategories() {
             currentOpenCategory = null;
-            projectsView.classList.remove('slide-in');
             projectsView.style.opacity = '0';
             projectsView.style.transform = 'translateY(20px)';
 
             setTimeout(() => {
-                // Exit Focus Mode
                 document.body.classList.remove('focus-active');
-                projectsView.classList.remove('active-view');
+                projectsView.classList.remove('slide-in', 'active-view');
                 projectsView.style.opacity = '';
                 projectsView.style.transform = '';
                 categoriesGrid.classList.remove('hidden-view');
@@ -3203,10 +3080,8 @@
             body.setAttribute('data-theme', isDark ? 'light' : 'dark');
             themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             const dict = translations[currentLang];
-            const themeTooltipEl = themeToggle.querySelector('.dock-tooltip');
-            if (themeTooltipEl) {
-                themeTooltipEl.textContent = isDark ? dict.dock_theme_light : dict.dock_theme;
-            }
+            const tip = themeToggle.querySelector('.dock-tooltip');
+            if (tip) tip.textContent = isDark ? dict.dock_theme_light : dict.dock_theme;
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
         });
 
@@ -3219,19 +3094,16 @@
         // =============================================
         // LANGUAGE TOGGLE
         // =============================================
-        const langToggle = document.getElementById('langToggle');
-        langToggle.addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'ar' : 'en';
-            setLanguage(newLang);
+        document.getElementById('langToggle').addEventListener('click', () => {
+            setLanguage(currentLang === 'en' ? 'ar' : 'en');
         });
 
         // =============================================
-        // DOCK: SCROLL + ACTIVE STATE
+        // DOCK NAVIGATION (with focus mode exit)
         // =============================================
-        const dockLinks = document.querySelectorAll('.dock-item[data-dock]');
         const sections = document.querySelectorAll('section[id]');
+        const dockLinks = document.querySelectorAll('.dock-item[data-dock]');
 
-        // Helper: exit focus mode instantly
         function exitFocusModeInstant() {
             document.body.classList.remove('focus-active');
             currentOpenCategory = null;
@@ -3241,15 +3113,12 @@
             categoriesGrid.classList.remove('hidden-view', 'fade-out');
         }
 
-        // Dock navigation: handle focus mode exit before scrolling
         document.querySelectorAll('a.dock-item[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-
                 if (document.body.classList.contains('focus-active')) {
                     exitFocusModeInstant();
-                    // Wait for hidden sections to reappear in DOM
                     setTimeout(() => {
                         const target = document.querySelector(targetId);
                         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3261,12 +3130,10 @@
             });
         });
 
-        // General anchor links (e.g., hero CTA "View My Work")
         document.querySelectorAll('a[href^="#"]:not(.dock-item)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-
                 if (document.body.classList.contains('focus-active')) {
                     exitFocusModeInstant();
                     setTimeout(() => {
@@ -3283,15 +3150,11 @@
         function updateDockActive() {
             let current = 'hero';
             sections.forEach(section => {
-                if (window.scrollY >= section.offsetTop - 300) {
-                    current = section.getAttribute('id');
-                }
+                if (window.scrollY >= section.offsetTop - 300) current = section.getAttribute('id');
             });
             dockLinks.forEach(item => {
                 item.classList.remove('active');
-                if (item.getAttribute('data-dock') === current) {
-                    item.classList.add('active');
-                }
+                if (item.getAttribute('data-dock') === current) item.classList.add('active');
             });
         }
 
@@ -3317,11 +3180,8 @@
         const modal = document.getElementById('contactModal');
 
         function openModal(e) {
-            e.preventDefault();
-            // Exit focus mode if active so modal overlay works properly
-            if (document.body.classList.contains('focus-active')) {
-                exitFocusModeInstant();
-            }
+            if (e) e.preventDefault();
+            if (document.body.classList.contains('focus-active')) exitFocusModeInstant();
             modal.classList.add('active');
             body.style.overflow = 'hidden';
         }
@@ -3331,13 +3191,8 @@
             body.style.overflow = '';
         }
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
         // =============================================
         // PARALLAX ORBS
@@ -3352,7 +3207,7 @@
         });
 
         // =============================================
-        // INIT LANGUAGE ON LOAD
+        // INIT
         // =============================================
         setLanguage(currentLang);
     </script>
