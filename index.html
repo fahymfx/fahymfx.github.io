@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fahym fx — Video Editor Portfolio</title>
+    <meta name="description" content="Fahym fx - Professional Sharia-Compliant Video Editor specializing in DaVinci Resolve, color grading, Fusion effects, and vertical editing.">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/yNDyPbpQ/gemini-3-pro-image-preview-2k-a-A-high-end-3D-abstr-(2).png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/yNDyPbpQ/gemini-3-pro-image-preview-2k-a-A-high-end-3D-abstr-(2).png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -495,6 +498,42 @@
 
         .hero-name .accent {
             -webkit-text-fill-color: var(--accent);
+        }
+
+        .hero-logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 12px;
+            border-radius: 10px;
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.25), 0 0 6px rgba(212, 175, 55, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            top: -2px;
+        }
+
+        .hero-logo:hover {
+            transform: rotate(8deg) scale(1.15);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 0 0 10px rgba(212, 175, 55, 0.25);
+            filter: brightness(1.15);
+        }
+
+        [dir="rtl"] .hero-logo {
+            margin-right: 0;
+            margin-left: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo {
+                width: 30px;
+                height: 30px;
+                margin-right: 8px;
+            }
+            [dir="rtl"] .hero-logo {
+                margin-right: 0;
+                margin-left: 8px;
+            }
         }
 
         .hero-title {
@@ -1970,9 +2009,10 @@
 
         .pricing-features li i {
             color: var(--accent);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             flex-shrink: 0;
             width: 18px;
+            filter: drop-shadow(0 0 4px rgba(194, 178, 128, 0.3));
         }
 
         .pricing-cta {
@@ -2270,7 +2310,7 @@
                     <span class="dot"></span>
                     <span data-i18n="hero_label">Available for Projects</span>
                 </div>
-                <h1 class="hero-name fade-up fade-up-d1">Fahym<span class="accent"> fx</span></h1>
+                <h1 class="hero-name fade-up fade-up-d1"><img src="https://i.postimg.cc/yNDyPbpQ/gemini-3-pro-image-preview-2k-a-A-high-end-3D-abstr-(2).png" alt="Fahym fx Logo" class="hero-logo">Fahym<span class="accent"> fx</span></h1>
                 <p class="hero-title fade-up fade-up-d2" data-i18n="hero_title">Professional Video Editor & Visual Storyteller</p>
                 <p class="hero-bio fade-up fade-up-d3" data-i18n="hero_bio">I'm a professional video editor with a refined eye for detail and a deep passion for visual storytelling. I work exclusively with DaVinci Resolve — specializing in cinematic editing, color grading, Fusion effects, sound design, and vertical editing — transforming raw footage into powerful, emotionally compelling content.</p>
                 <div class="hero-skills fade-up fade-up-d3">
@@ -2571,17 +2611,17 @@
                 <h3 class="subsection-title"><i class="fas fa-tags"></i> <span data-i18n="pricing_packages_title">Standard Pricing</span></h3>
                 <div class="pricing-grid">
                     <div class="pricing-card fade-up fade-up-d1">
-                        <div class="pricing-tier" data-i18n="tier_starter">Starter</div>
-                        <h4 data-i18n="pkg_1_title">Basic Reel</h4>
+                        <div class="pricing-tier" data-i18n="tier_starter">Essential</div>
+                        <h4 data-i18n="pkg_1_title">Essential Reel</h4>
                         <div class="pricing-price">
-                            <span class="price-amount">$XX</span>
+                            <span class="price-amount" data-i18n="price_1">$35+</span>
                             <span class="price-period" data-i18n="per_video">/ Video</span>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f1">Simple Cuts & Transitions</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f2">Captions & Text Overlays</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f3">Stock Music (Halal)</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f4">1 Revision Round</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f1">Pro Cuts & Transitions</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f2">Halal Audio & SFX</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f3">Dynamic Captions</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f4">48h Delivery</span></li>
                             <li><i class="fas fa-check"></i> <span data-i18n="pkg_1_f5">Vertical Format (9:16)</span></li>
                         </ul>
                         <button class="pricing-cta" onclick="openModal(event)">
@@ -2591,19 +2631,19 @@
 
                     <div class="pricing-card pricing-featured fade-up fade-up-d2">
                         <div class="pricing-popular" data-i18n="most_popular">Most Popular</div>
-                        <div class="pricing-tier" data-i18n="tier_pro">Professional</div>
-                        <h4 data-i18n="pkg_2_title">Pro Edit</h4>
+                        <div class="pricing-tier" data-i18n="tier_pro">Viral Growth</div>
+                        <h4 data-i18n="pkg_2_title">Viral Growth Edit</h4>
                         <div class="pricing-price">
-                            <span class="price-amount">$XX</span>
+                            <span class="price-amount" data-i18n="price_2">$65+</span>
                             <span class="price-period" data-i18n="per_video">/ Video</span>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f1">Advanced Transitions & Effects</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f2">Professional Sound Design</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f3">Cinematic Color Grading</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f4">Fusion Motion Graphics</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f5">2 Revision Rounds</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f6">Multiple Formats</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f1">All Essential Features</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f2">High-Retention Hooks</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f3">Advanced Fusion FX</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f4">Cinematic Color Grading (DaVinci)</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f5">Professional Sound Design (No Music)</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_2_f6">2 Revision Rounds</span></li>
                         </ul>
                         <button class="pricing-cta pricing-cta-featured" onclick="openModal(event)">
                             <i class="fas fa-handshake"></i> <span data-i18n="cta_talk">Let's Talk</span>
@@ -2611,17 +2651,17 @@
                     </div>
 
                     <div class="pricing-card fade-up fade-up-d3">
-                        <div class="pricing-tier" data-i18n="tier_enterprise">Enterprise</div>
-                        <h4 data-i18n="pkg_3_title">Monthly Retainer</h4>
+                        <div class="pricing-tier" data-i18n="tier_enterprise">Elite Retainer</div>
+                        <h4 data-i18n="pkg_3_title">Elite Partner</h4>
                         <div class="pricing-price">
-                            <span class="price-amount">$XXX</span>
+                            <span class="price-amount" data-i18n="price_3">$450+</span>
                             <span class="price-period" data-i18n="per_month">/ Month</span>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f1">4–8 Videos per Month</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f2">Priority Support & Delivery</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f3">Monthly Strategy Call</span></li>
-                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f4">Full Color Grading Suite</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f1">8 Premium Reels / Month</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f2">Content Strategy Call</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f3">Priority Delivery (24h)</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f4">Visual Brand Identity</span></li>
                             <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f5">Unlimited Revisions</span></li>
                             <li><i class="fas fa-check"></i> <span data-i18n="pkg_3_f6">Dedicated Editor Access</span></li>
                         </ul>
@@ -2629,6 +2669,13 @@
                             <i class="fas fa-handshake"></i> <span data-i18n="cta_talk">Let's Talk</span>
                         </button>
                     </div>
+                </div>
+
+                <div class="pricing-note fade-up" style="text-align:center; margin-top:40px; padding:20px 30px; background:var(--glass); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--glass-border); border-radius:var(--radius-sm); max-width:600px; margin-left:auto; margin-right:auto;">
+                    <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; font-style:italic;">
+                        <i class="fas fa-info-circle" style="color:var(--accent); margin-right:6px;"></i>
+                        <span data-i18n="pricing_note">Prices vary based on project complexity and footage length. Let's discuss your specific needs.</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -2722,17 +2769,19 @@
                 pay_2_title: 'Wise (TransferWise)', pay_2_desc: 'Best for International Clients (Low Fees)',
                 pay_3_title: 'Crypto (USDT)', pay_3_desc: 'Fast & Low Transaction Fees',
                 pricing_packages_title: 'Standard Pricing',
-                tier_starter: 'Starter', tier_pro: 'Professional', tier_enterprise: 'Enterprise',
-                pkg_1_title: 'Basic Reel', pkg_2_title: 'Pro Edit', pkg_3_title: 'Monthly Retainer',
+                tier_starter: 'Essential', tier_pro: 'Viral Growth', tier_enterprise: 'Elite Retainer',
+                pkg_1_title: 'Essential Reel', pkg_2_title: 'Viral Growth Edit', pkg_3_title: 'Elite Partner',
+                price_1: '$35+', price_2: '$65+', price_3: '$450+',
                 per_video: '/ Video', per_month: '/ Month', most_popular: 'Most Popular',
-                pkg_1_f1: 'Simple Cuts & Transitions', pkg_1_f2: 'Captions & Text Overlays',
-                pkg_1_f3: 'Stock Music (Halal)', pkg_1_f4: '1 Revision Round', pkg_1_f5: 'Vertical Format (9:16)',
-                pkg_2_f1: 'Advanced Transitions & Effects', pkg_2_f2: 'Professional Sound Design',
-                pkg_2_f3: 'Cinematic Color Grading', pkg_2_f4: 'Fusion Motion Graphics',
-                pkg_2_f5: '2 Revision Rounds', pkg_2_f6: 'Multiple Formats',
-                pkg_3_f1: '4–8 Videos per Month', pkg_3_f2: 'Priority Support & Delivery',
-                pkg_3_f3: 'Monthly Strategy Call', pkg_3_f4: 'Full Color Grading Suite',
+                pkg_1_f1: 'Pro Cuts & Transitions', pkg_1_f2: 'Halal Audio & SFX',
+                pkg_1_f3: 'Dynamic Captions', pkg_1_f4: '48h Delivery', pkg_1_f5: 'Vertical Format (9:16)',
+                pkg_2_f1: 'All Essential Features', pkg_2_f2: 'High-Retention Hooks',
+                pkg_2_f3: 'Advanced Fusion FX', pkg_2_f4: 'Cinematic Color Grading (DaVinci)',
+                pkg_2_f5: 'Professional Sound Design (No Music)', pkg_2_f6: '2 Revision Rounds',
+                pkg_3_f1: '8 Premium Reels / Month', pkg_3_f2: 'Content Strategy Call',
+                pkg_3_f3: 'Priority Delivery (24h)', pkg_3_f4: 'Visual Brand Identity',
                 pkg_3_f5: 'Unlimited Revisions', pkg_3_f6: 'Dedicated Editor Access',
+                pricing_note: 'Prices vary based on project complexity and footage length. Let\'s discuss your specific needs.',
                 cta_talk: "Let's Talk",
                 modal_title: "Let's Talk", modal_subtitle: 'Have a project in mind? Drop me a message.',
                 form_name: 'Name', form_name_ph: 'Your name',
@@ -2784,17 +2833,19 @@
                 pay_2_title: 'وايز (TransferWise)', pay_2_desc: 'الأفضل للعملاء الدوليين (رسوم منخفضة)',
                 pay_3_title: 'عملات رقمية (USDT)', pay_3_desc: 'سريع ورسوم معاملات منخفضة',
                 pricing_packages_title: 'الأسعار القياسية',
-                tier_starter: 'مبتدئ', tier_pro: 'احترافي', tier_enterprise: 'مؤسسات',
-                pkg_1_title: 'ريل أساسي', pkg_2_title: 'مونتاج احترافي', pkg_3_title: 'اشتراك شهري',
+                tier_starter: 'الباقة الأساسية', tier_pro: 'باقة الانتشار', tier_enterprise: 'شريك النجاح',
+                pkg_1_title: 'ريل أساسي', pkg_2_title: 'مونتاج الانتشار', pkg_3_title: 'شريك النخبة',
+                price_1: '$35+', price_2: '$65+', price_3: '$450+',
                 per_video: '/ فيديو', per_month: '/ شهر', most_popular: 'الأكثر طلباً',
-                pkg_1_f1: 'قص وانتقالات بسيطة', pkg_1_f2: 'ترجمة ونصوص متراكبة',
-                pkg_1_f3: 'موسيقى جاهزة (حلال)', pkg_1_f4: 'جولة مراجعة واحدة', pkg_1_f5: 'صيغة عمودية (9:16)',
-                pkg_2_f1: 'انتقالات ومؤثرات متقدمة', pkg_2_f2: 'تصميم صوتي احترافي',
-                pkg_2_f3: 'تصحيح ألوان سينمائي', pkg_2_f4: 'رسوم متحركة فيوجن',
-                pkg_2_f5: 'جولتا مراجعة', pkg_2_f6: 'صيغ متعددة',
-                pkg_3_f1: '٤-٨ فيديوهات شهرياً', pkg_3_f2: 'دعم وتسليم بأولوية',
-                pkg_3_f3: 'مكالمة استراتيجية شهرية', pkg_3_f4: 'حزمة تصحيح ألوان كاملة',
+                pkg_1_f1: 'قص وانتقالات احترافية', pkg_1_f2: 'صوتيات حلال ومؤثرات صوتية',
+                pkg_1_f3: 'ترجمات ديناميكية', pkg_1_f4: 'تسليم خلال ٤٨ ساعة', pkg_1_f5: 'صيغة عمودية (9:16)',
+                pkg_2_f1: 'جميع مزايا الباقة الأساسية', pkg_2_f2: 'خطافات جذب عالية الاحتفاظ',
+                pkg_2_f3: 'مؤثرات فيوجن متقدمة', pkg_2_f4: 'تصحيح ألوان سينمائي (دافينشي)',
+                pkg_2_f5: 'تصميم صوتي احترافي (بدون موسيقى)', pkg_2_f6: 'جولتا مراجعة',
+                pkg_3_f1: '٨ ريلات مميزة شهرياً', pkg_3_f2: 'مكالمة استراتيجية المحتوى',
+                pkg_3_f3: 'تسليم بأولوية (٢٤ ساعة)', pkg_3_f4: 'هوية بصرية للعلامة التجارية',
                 pkg_3_f5: 'مراجعات غير محدودة', pkg_3_f6: 'مونتير مخصص',
+                pricing_note: 'تختلف الأسعار حسب تعقيد المشروع وطول اللقطات الخام. فلنناقش احتياجاتك الخاصة.',
                 cta_talk: 'تواصل معي',
                 modal_title: 'تواصل معي', modal_subtitle: 'لديك مشروع في ذهنك؟ أرسل لي رسالة.',
                 form_name: 'الاسم', form_name_ph: 'اسمك',
