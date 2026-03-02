@@ -209,16 +209,18 @@
       font-weight: 700; font-size: 1.35rem; text-decoration: none;
       display: flex; align-items: baseline; gap: 1px;
       letter-spacing: 0.01em; flex-shrink: 0;
-      direction: ltr; unicode-bidi: isolate;
+      direction: ltr !important; unicode-bidi: isolate;
+      font-family: 'Inter', sans-serif !important;
     }
-    .logo__name { color: var(--logo-name); font-weight: 800; transition: color 0.4s ease; }
-    .logo__fx   { color: #C2B280; font-weight: 700; }
-    .logo__sep  { color: rgba(128,128,128,0.3); font-weight: 300; margin: 0 8px; font-size: 1.1rem; }
-    .logo__tag  { color: rgba(194,178,128,0.5); font-weight: 400; font-size: 0.85rem; }
+    .logo__name { color: var(--logo-name); font-weight: 800; transition: color 0.4s ease; font-family: 'Inter', sans-serif !important; }
+    .logo__fx   { color: #C2B280; font-weight: 700; font-family: 'Inter', sans-serif !important; }
+    .logo__sep  { color: rgba(128,128,128,0.3); font-weight: 300; margin: 0 8px; font-size: 1.1rem; font-family: 'Inter', sans-serif !important; }
+    .logo__tag  { color: rgba(194,178,128,0.5); font-weight: 400; font-size: 0.85rem; font-family: 'Inter', sans-serif !important; }
     .nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    .lang-switch { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px; gap: 2px; }
-    .lang-switch__btn { padding: 7px 14px; border: 1px solid transparent; background: none; color: var(--text-dim); font-family: inherit; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; border-radius: var(--radius-pill); transition: all 0.25s ease; line-height: 1; }
+    /* LANG SWITCH — fixed width prevents resize on EN↔AR toggle */
+    .lang-switch { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px; gap: 2px; width: 88px; height: 36px; flex-shrink: 0; }
+    .lang-switch__btn { flex: 1; min-width: 0; text-align: center; padding: 0 4px; height: 100%; border: 1px solid transparent; background: none; color: var(--text-dim); font-family: 'Inter', sans-serif !important; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; border-radius: var(--radius-pill); transition: all 0.25s ease; line-height: 1; }
     .lang-switch__btn.active { background: rgba(194,178,128,0.14); border-color: rgba(194,178,128,0.4); color: var(--gold); box-shadow: 0 0 14px rgba(194,178,128,0.18); }
     .lang-switch__btn:hover:not(.active) { color: var(--text); }
 
