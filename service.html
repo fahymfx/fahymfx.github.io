@@ -220,7 +220,7 @@
 
     /* LANG SWITCH — fixed width prevents resize on EN↔AR toggle */
     .lang-switch { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 3px; gap: 2px; width: 88px; height: 36px; flex-shrink: 0; }
-    .lang-switch__btn { flex: 1; min-width: 0; text-align: center; padding: 0 4px; height: 100%; border: 1px solid transparent; background: none; color: var(--text-dim); font-family: 'Inter', sans-serif !important; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; border-radius: var(--radius-pill); transition: all 0.25s ease; line-height: 1; }
+    .lang-switch__btn { flex: 1; min-width: 0; text-align: center; display: flex; align-items: center; justify-content: center; height: 100%; padding: 0; padding-bottom: 2px; margin: 0; border: 1px solid transparent; background: none; color: var(--text-dim); font-family: 'Inter', sans-serif !important; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; border-radius: var(--radius-pill); transition: all 0.25s ease; line-height: 1; }
     .lang-switch__btn.active { background: rgba(194,178,128,0.14); border-color: rgba(194,178,128,0.4); color: var(--gold); box-shadow: 0 0 14px rgba(194,178,128,0.18); }
     .lang-switch__btn:hover:not(.active) { color: var(--text); }
 
