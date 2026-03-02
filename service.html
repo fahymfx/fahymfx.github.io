@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fahym fx | Web Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C2B280;
+      --gold-light: #d4c99a;
+      --gold-dark: #a89660;
+      --bg: #050505;
+      --bg-secondary: #0a0a0a;
+      --surface: rgba(255, 255, 255, 0.03);
+      --surface-hover: rgba(255, 255, 255, 0.06);
+      --surface-strong: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-gold: rgba(194, 178, 128, 0.3);
+      --blur: blur(20px);
+      --blur-heavy: blur(30px);
+      --text: #f0ece0;
+      --text-dim: rgba(240, 236, 224, 0.55);
+      --text-mid: rgba(240, 236, 224, 0.78);
+      --logo-name: #FFFFFF;
+      --radius: 24px;
+      --radius-sm: 16px;
+      --radius-pill: 50px;
+      --shadow-gold: 0 0 40px rgba(194,178,128,0.12);
+      --shadow-gold-strong: 0 0 60px rgba(194,178,128,0.2), 0 0 120px rgba(194,178,128,0.08);
+      --orb-opacity: 1;
+      --atmos-before-opacity: 1;
+      --atmos-after-bg: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, var(--bg) 100%);
+      --card-bad-bg: rgba(255,80,80,0.04);
+      --card-good-bg: rgba(194,178,128,0.08);
+      --icon-bad-bg: rgba(255,90,90,0.08);
+      --icon-bad-border: rgba(255,90,90,0.15);
+      --icon-bad-color: #ff7070;
+      --icon-good-bg: rgba(194,178,128,0.1);
+      --icon-good-border: rgba(194,178,128,0.25);
+      --pricing-line: rgba(255,255,255,0.07);
+      --footer-line: rgba(194,178,128,0.22);
+      --footer-copy: rgba(240,236,224,0.28);
+      --nav-bg: rgba(5,5,5,0.7);
+      --nav-border: rgba(255,255,255,0.08);
+      --dock-bg: rgba(10,10,10,0.65);
+      --dock-border: rgba(255,255,255,0.1);
+      --dock-item-hover: rgba(255,255,255,0.06);
+      --dock-shadow: 0 -4px 40px rgba(0,0,0,0.4), 0 0 80px rgba(194,178,128,0.04);
+      --dock-tooltip-bg: rgba(20,20,20,0.92);
+      --dock-tooltip-border: rgba(255,255,255,0.12);
+    }
+
+    :root.light {
+      --bg: #f4f1eb;
+      --bg-secondary: #ece8e0;
+      --surface: rgba(255, 255, 255, 0.55);
+      --surface-hover: rgba(255, 255, 255, 0.7);
+      --surface-strong: rgba(255, 255, 255, 0.65);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-gold: rgba(194, 178, 128, 0.4);
+      --text: #1a1714;
+      --text-dim: rgba(26, 23, 20, 0.5);
+      --text-mid: rgba(26, 23, 20, 0.72);
+      --logo-name: #111111;
+      --shadow-gold: 0 0 40px rgba(194,178,128,0.18);
+      --shadow-gold-strong: 0 0 60px rgba(194,178,128,0.28), 0 0 120px rgba(194,178,128,0.1);
+      --orb-opacity: 0.5;
+      --card-bad-bg: rgba(255,80,80,0.06);
+      --card-good-bg: rgba(194,178,128,0.1);
+      --icon-bad-bg: rgba(255,90,90,0.1);
+      --icon-bad-border: rgba(255,90,90,0.2);
+      --icon-bad-color: #e05555;
+      --icon-good-bg: rgba(194,178,128,0.14);
+      --icon-good-border: rgba(194,178,128,0.35);
+      --pricing-line: rgba(0,0,0,0.07);
+      --footer-line: rgba(194,178,128,0.3);
+      --footer-copy: rgba(26,23,20,0.35);
+      --nav-bg: rgba(255,255,255,0.6);
+      --nav-border: rgba(0,0,0,0.06);
+      --dock-bg: rgba(255,255,255,0.6);
+      --dock-border: rgba(0,0,0,0.08);
+      --dock-item-hover: rgba(0,0,0,0.04);
+      --dock-shadow: 0 -4px 40px rgba(0,0,0,0.08), 0 0 60px rgba(194,178,128,0.06);
+      --dock-tooltip-bg: rgba(255,255,255,0.95);
+      --dock-tooltip-border: rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background 0.5s ease, color 0.4s ease;
+      padding-bottom: 100px;
+    }
+
+    body.rtl {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+    }
+
+    body.rtl * { line-height: 1.8; }
+
+    /* ── ATMOSPHERE ── */
+    .atmosphere {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; overflow: hidden;
+      transition: opacity 0.5s ease;
+    }
+    .atmosphere::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 85% 55% at 15% 8%, rgba(194,178,128,0.07) 0%, transparent 58%),
+        radial-gradient(ellipse 55% 45% at 85% 85%, rgba(194,178,128,0.05) 0%, transparent 52%),
+        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(194,178,128,0.02) 0%, transparent 70%);
+      opacity: var(--atmos-before-opacity, 1);
+    }
+    .atmosphere::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--atmos-after-bg);
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(90px);
+      will-change: transform; opacity: var(--orb-opacity);
+      transition: opacity 0.5s ease;
+    }
+    .orb--1 {
+      width: 550px; height: 550px;
+      background: rgba(194,178,128,0.055);
+      top: -180px; left: -180px;
+      animation: drift 16s ease-in-out infinite alternate;
+    }
+    .orb--2 {
+      width: 400px; height: 400px;
+      background: rgba(194,178,128,0.04);
+      bottom: -120px; right: -120px;
+      animation: drift 12s ease-in-out infinite alternate-reverse;
+      animation-delay: -4s;
+    }
+    .orb--3 {
+      width: 300px; height: 300px;
+      background: rgba(194,178,128,0.03);
+      top: 45%; left: 55%;
+      animation: drift 18s ease-in-out infinite alternate;
+      animation-delay: -8s;
+    }
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(35px, 45px) scale(1.12); }
+    }
+    .light .atmosphere::before { opacity: 0.6; }
+    .light .atmosphere::after {
+      background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, var(--bg) 100%);
+    }
+
+    /* ── GLASS ── */
+    .glass {
+      background: var(--surface);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .glass--nav {
+      background: var(--nav-bg);
+      backdrop-filter: var(--blur-heavy);
+      -webkit-backdrop-filter: var(--blur-heavy);
+      border: 1px solid var(--nav-border);
+      border-radius: 20px;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 1120px; margin: 0 auto;
+      padding: 0 24px; position: relative; z-index: 2;
+    }
+    section { position: relative; z-index: 2; }
+
+    /* ── NAV ── */
+    .nav { position: sticky; top: 0; z-index: 999; padding: 16px 0; }
+    .nav__bar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px; gap: 12px;
+    }
+    .logo {
+      font-weight: 700; font-size: 1.35rem; text-decoration: none;
+      display: flex; align-items: baseline; gap: 1px;
+      letter-spacing: 0.01em; flex-shrink: 0;
+      direction: ltr; unicode-bidi: isolate;
+    }
+    .logo__name { color: var(--logo-name); font-weight: 800; transition: color 0.4s ease; }
+    .logo__fx   { color: #C2B280; font-weight: 700; }
+    .logo__sep  { color: rgba(128,128,128,0.3); font-weight: 300; margin: 0 8px; font-size: 1.1rem; }
+    .logo__tag  { color: rgba(194,178,128,0.5); font-weight: 400; font-size: 0.85rem; }
+    .nav__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    /* LANG */
+    .lang-switch {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 3px; gap: 2px;
+    }
+    .lang-switch__btn {
+      padding: 7px 14px; border: 1px solid transparent;
+      background: none; color: var(--text-dim);
+      font-family: inherit; font-size: 0.76rem; font-weight: 600;
+      letter-spacing: 0.06em; cursor: pointer;
+      border-radius: var(--radius-pill); transition: all 0.25s ease; line-height: 1;
+    }
+    .lang-switch__btn.active {
+      background: rgba(194,178,128,0.14);
+      border-color: rgba(194,178,128,0.4);
+      color: var(--gold);
+      box-shadow: 0 0 14px rgba(194,178,128,0.18);
+    }
+    .lang-switch__btn:hover:not(.active) { color: var(--text); }
+
+    /* THEME */
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-dim); font-size: 0.9rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease; flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      border-color: var(--gold); color: var(--gold);
+      box-shadow: 0 0 18px rgba(194,178,128,0.2);
+    }
+    .theme-toggle .fa-sun { display: none; }
+    .theme-toggle .fa-moon { display: inline-block; }
+    .light .theme-toggle .fa-sun { display: inline-block; }
+    .light .theme-toggle .fa-moon { display: none; }
+
+    /* ── HERO ── */
+    .hero { padding: 120px 0 100px; text-align: center; }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px;
+      background: rgba(194,178,128,0.08);
+      border: 1px solid rgba(194,178,128,0.25);
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .hero__badge i { font-size: 0.65rem; }
+    .hero__title {
+      font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 900;
+      line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 28px;
+    }
+    body.rtl .hero__title { letter-spacing: 0; line-height: 1.3; }
+    .hero__title .t-white { color: var(--text); display: block; }
+    .hero__title .t-gold  { color: var(--gold); display: block; }
+    .hero__sub {
+      font-size: clamp(0.98rem, 2.5vw, 1.15rem); color: var(--text-dim);
+      max-width: 560px; margin: 0 auto 52px; line-height: 1.8;
+    }
+    .hero__sub strong { color: var(--gold-light); font-weight: 600; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 17px 40px;
+      background: linear-gradient(135deg, rgba(194,178,128,0.14), rgba(194,178,128,0.06));
+      border: 1px solid rgba(194,178,128,0.5);
+      border-radius: var(--radius-pill); color: var(--gold-light);
+      font-family: inherit; font-size: 1rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; transition: all 0.35s ease;
+      box-shadow: 0 0 30px rgba(194,178,128,0.1), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .btn-hero:hover {
+      background: linear-gradient(135deg, rgba(194,178,128,0.24), rgba(194,178,128,0.1));
+      border-color: var(--gold);
+      box-shadow: 0 0 55px rgba(194,178,128,0.3), 0 0 110px rgba(194,178,128,0.08), inset 0 1px 0 rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+    }
+    .btn-hero i { font-size: 0.85rem; }
+
+    /* ── SECTION HEADERS ── */
+    .sh__label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    }
+    .sh__label i { font-size: 0.7rem; }
+    .sh__title {
+      font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 12px;
+    }
+    body.rtl .sh__title { letter-spacing: 0; line-height: 1.4; }
+    .sh__desc { color: var(--text-dim); font-size: 1rem; line-height: 1.6; margin-bottom: 56px; }
+    .text-c { text-align: center; }
+
+    /* ── COMPARE ── */
+    .compare { padding: 100px 0; }
+    .compare__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .compare__card {
+      padding: 42px 36px; position: relative; overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .compare__card::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: var(--radius); pointer-events: none;
+    }
+    .compare__card--bad::before {
+      background: radial-gradient(ellipse at 20% 10%, var(--card-bad-bg) 0%, transparent 55%);
+    }
+    .compare__card--good::before {
+      background: radial-gradient(ellipse at 20% 10%, var(--card-good-bg) 0%, transparent 55%);
+    }
+    .compare__card--good { border-color: var(--border-gold); }
+    .compare__card--good:hover { box-shadow: var(--shadow-gold); }
+    .compare__icon {
+      width: 52px; height: 52px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px; font-size: 1.35rem;
+    }
+    .compare__card--bad .compare__icon {
+      background: var(--icon-bad-bg); border: 1px solid var(--icon-bad-border);
+      color: var(--icon-bad-color);
+    }
+    .compare__card--good .compare__icon {
+      background: var(--icon-good-bg); border: 1px solid var(--icon-good-border);
+      color: var(--gold);
+    }
+    .compare__heading { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .compare__card--good .compare__heading { color: var(--gold-light); }
+    .compare__sub {
+      font-size: 0.78rem; color: var(--text-dim); font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .compare__list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .compare__list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.91rem; color: var(--text-mid); line-height: 1.55;
+    }
+    body.rtl .compare__list li { flex-direction: row-reverse; text-align: right; }
+    .compare__list li i { flex-shrink: 0; margin-top: 3px; font-size: 0.92rem; }
+    .compare__list li i.ic-bad  { color: var(--icon-bad-color); }
+    .compare__list li i.ic-good { color: var(--gold); }
+
+    /* ── PRICING ── */
+    .pricing { padding: 100px 0; }
+    .pricing__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; align-items: start;
+    }
+    .pricing__card {
+      padding: 40px 30px; position: relative; overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+    }
+    .pricing__card:hover { transform: translateY(-8px); }
+    .pricing__card--pop {
+      border-color: rgba(194,178,128,0.45);
+      background: rgba(194,178,128,0.04);
+      box-shadow: var(--shadow-gold);
+    }
+    .light .pricing__card--pop { background: rgba(194,178,128,0.08); }
+    .pricing__card--pop:hover { box-shadow: var(--shadow-gold-strong); }
+    .pricing__card--pop::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 5%, var(--gold) 50%, transparent 95%);
+      opacity: 0.65; border-radius: 2px 2px 0 0;
+    }
+    .pricing__pop-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px;
+      background: linear-gradient(135deg, rgba(194,178,128,0.18), rgba(194,178,128,0.08));
+      border: 1px solid rgba(194,178,128,0.4);
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .pricing__pop-tag i { font-size: 0.65rem; }
+    .pricing__tier {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px;
+    }
+    .pricing__card--pop .pricing__tier { color: var(--gold); }
+    .pricing__price {
+      font-size: 3.1rem; font-weight: 900; letter-spacing: -0.04em;
+      color: var(--text); line-height: 1; margin-bottom: 8px;
+    }
+    .pricing__price sup {
+      font-size: 1.2rem; vertical-align: super; font-weight: 600; color: var(--gold);
+    }
+    .pricing__card--pop .pricing__price { color: var(--gold-light); }
+    .pricing__desc {
+      font-size: 0.82rem; color: var(--text-dim);
+      margin-bottom: 28px; line-height: 1.6;
+    }
+    .pricing__line { height: 1px; background: var(--pricing-line); margin-bottom: 26px; }
+    .pricing__features {
+      list-style: none; display: flex; flex-direction: column;
+      gap: 12px; margin-bottom: 34px;
+    }
+    .pricing__features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.87rem; color: var(--text-mid); line-height: 1.5;
+    }
+    body.rtl .pricing__features li { flex-direction: row-reverse; text-align: right; }
+    .pricing__features li i {
+      color: var(--gold); flex-shrink: 0; margin-top: 3px; font-size: 0.72rem;
+    }
+    .btn-order {
+      width: 100%; padding: 14px 24px;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px; background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill); color: var(--text);
+      font-family: inherit; font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .btn-order:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(194,178,128,0.08);
+      box-shadow: 0 0 30px rgba(194,178,128,0.2);
+    }
+    .btn-order--pop {
+      background: linear-gradient(135deg, rgba(194,178,128,0.16), rgba(194,178,128,0.06));
+      border-color: rgba(194,178,128,0.5); color: var(--gold-light);
+      box-shadow: 0 0 22px rgba(194,178,128,0.12);
+    }
+    .btn-order--pop:hover {
+      background: linear-gradient(135deg, rgba(194,178,128,0.28), rgba(194,178,128,0.14));
+      box-shadow: 0 0 55px rgba(194,178,128,0.35); color: var(--gold);
+    }
+
+    /* ── FAQ ── */
+    .faq { padding: 100px 0; }
+    .faq__list {
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .faq__item {
+      border-radius: 18px; overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .faq__item:hover { border-color: rgba(194,178,128,0.2); }
+    .faq__item.open {
+      border-color: rgba(194,178,128,0.35);
+      box-shadow: 0 0 30px rgba(194,178,128,0.08);
+    }
+    .faq__q {
+      width: 100%; padding: 22px 26px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; background: none; border: none;
+      color: var(--text); font-family: inherit;
+      font-size: 0.96rem; font-weight: 600; text-align: left;
+      cursor: pointer; transition: color 0.3s ease;
+    }
+    body.rtl .faq__q { text-align: right; }
+    .faq__q:hover { color: var(--gold-light); }
+    .faq__item.open .faq__q { color: var(--gold); }
+    .faq__icon {
+      width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; color: var(--text-dim);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq__item.open .faq__icon {
+      background: rgba(194,178,128,0.12);
+      border-color: rgba(194,178,128,0.4);
+      color: var(--gold); transform: rotate(45deg);
+    }
+    .faq__a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq__item.open .faq__a { max-height: 350px; }
+    .faq__a-inner {
+      padding: 0 26px 26px; font-size: 0.9rem;
+      color: var(--text-dim); line-height: 1.85;
+    }
+
+
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 60px 0 42px; text-align: center;
+      position: relative; z-index: 2;
+    }
+    .footer::before {
+      content: ''; display: block; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--footer-line), transparent);
+      margin-bottom: 44px;
+    }
+    .footer__logo {
+      font-size: 1.08rem; font-weight: 700; margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 1px; direction: ltr; unicode-bidi: isolate;
+    }
+    .footer__socials {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; margin-bottom: 18px;
+    }
+    .footer__social-link {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim); font-size: 0.95rem;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .footer__social-link:hover {
+      border-color: var(--gold); color: var(--gold);
+      box-shadow: 0 0 18px rgba(194,178,128,0.2);
+      transform: translateY(-2px);
+    }
+    .footer__copy { font-size: 0.82rem; color: var(--footer-copy); line-height: 1.75; }
+    .footer__copy a {
+      color: rgba(194,178,128,0.5); text-decoration: none; transition: color 0.3s;
+    }
+    .footer__copy a:hover { color: var(--gold); }
+
+    /* ══════════════════════════════════════════
+       FLOATING BOTTOM DOCK
+    ══════════════════════════════════════════ */
+    .dock {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(28px) saturate(1.6);
+      -webkit-backdrop-filter: blur(28px) saturate(1.6);
+      border: 1px solid var(--dock-border);
+      border-radius: 22px;
+      box-shadow: var(--dock-shadow);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .dock__item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .dock__item:hover {
+      background: var(--dock-item-hover);
+      color: var(--text);
+      transform: translateY(-3px) scale(1.08);
+    }
+
+    .dock__item.active {
+      color: #1a1200;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(194,178,128,0.45), 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .dock__item.active::after {
+      display: none;
+    }
+
+    .dock__item.active:hover {
+      background: var(--gold-light);
+      color: #0a0800;
+      transform: translateY(-3px) scale(1.08);
+    }
+
+    .dock__item--wa { color: #25d366; }
+    .dock__item--wa:hover {
+      color: #25d366;
+      background: rgba(37,211,102,0.1);
+      box-shadow: 0 0 20px rgba(37,211,102,0.2);
+    }
+
+    .dock__item--contact { color: var(--gold); }
+    .dock__item--contact:hover {
+      color: var(--gold-light);
+      background: rgba(194,178,128,0.12);
+      box-shadow: 0 0 20px rgba(194,178,128,0.25);
+    }
+
+    .dock__item--ig { color: #e4405f; }
+    .dock__item--ig:hover {
+      color: #e4405f;
+      background: rgba(228,64,95,0.08);
+      box-shadow: 0 0 20px rgba(228,64,95,0.15);
+    }
+
+    .dock__item--back { color: var(--text-dim); }
+
+    /* ── CONTACT MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 99998;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+    .modal {
+      position: relative;
+      width: 90%; max-width: 360px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(40px) saturate(2);
+      -webkit-backdrop-filter: blur(40px) saturate(2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 32px;
+      padding: 44px 30px 36px;
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(194,178,128,0.08),
+        0 0 60px rgba(194,178,128,0.1),
+        0 40px 100px rgba(0,0,0,0.6);
+      transform: translateY(28px) scale(0.94);
+      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+      opacity: 0;
+    }
+    .light .modal {
+      background: rgba(255,255,255,0.88);
+      border-color: rgba(0,0,0,0.08);
+      box-shadow: 0 0 60px rgba(194,178,128,0.14), 0 40px 80px rgba(0,0,0,0.12);
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .modal__close {
+      position: absolute; top: 14px; right: 16px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4); font-size: 0.78rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .light .modal__close {
+      background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1);
+      color: rgba(0,0,0,0.4);
+    }
+    body.rtl .modal__close { right: auto; left: 16px; }
+    .modal__close:hover {
+      background: rgba(194,178,128,0.15);
+      border-color: rgba(194,178,128,0.4);
+      color: var(--gold);
+    }
+    .modal__icon {
+      width: 60px; height: 60px; border-radius: 20px; margin: 0 auto 22px;
+      background: linear-gradient(135deg, rgba(194,178,128,0.18), rgba(194,178,128,0.06));
+      border: 1px solid rgba(194,178,128,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; color: var(--gold);
+      box-shadow: 0 0 30px rgba(194,178,128,0.15);
+    }
+    .modal__title {
+      font-size: 1.2rem; font-weight: 800; margin-bottom: 8px;
+      color: #C2B280;
+      text-shadow: 0 0 30px rgba(194,178,128,0.3);
+    }
+    .modal__sub {
+      font-size: 0.8rem; color: rgba(240,236,224,0.45);
+      margin-bottom: 30px; line-height: 1.65;
+    }
+    .light .modal__sub { color: rgba(26,23,20,0.45); }
+    .modal__links {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .modal__link {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; padding: 17px 24px;
+      border-radius: 20px;
+      text-decoration: none; font-family: inherit;
+      font-size: 0.95rem; font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer;
+      border: 1px solid; background: none;
+      width: 100%; letter-spacing: 0.01em;
+    }
+    .modal__link--wa {
+      color: #25d366;
+      border-color: rgba(37,211,102,0.25);
+      background: rgba(37,211,102,0.06);
+      box-shadow: 0 0 0 0 rgba(37,211,102,0);
+    }
+    .modal__link--wa:hover {
+      background: rgba(37,211,102,0.13);
+      border-color: rgba(37,211,102,0.55);
+      box-shadow: 0 0 30px rgba(37,211,102,0.3), 0 8px 24px rgba(37,211,102,0.12);
+      transform: translateY(-3px) scale(1.02);
+    }
+    .modal__link--ig {
+      color: #e4405f;
+      border-color: rgba(228,64,95,0.22);
+      background: rgba(228,64,95,0.06);
+    }
+    .modal__link--ig:hover {
+      background: rgba(228,64,95,0.12);
+      border-color: rgba(228,64,95,0.5);
+      box-shadow: 0 0 30px rgba(228,64,95,0.25), 0 8px 24px rgba(228,64,95,0.1);
+      transform: translateY(-3px) scale(1.02);
+    }
+    .modal__link i { font-size: 1.25rem; flex-shrink: 0; }
+    .dock__item--back:hover {
+      color: var(--gold);
+      background: rgba(194,178,128,0.08);
+    }
+
+    .dock__sep {
+      width: 1px;
+      height: 26px;
+      background: var(--border);
+      margin: 0 4px;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .dock__tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      padding: 6px 12px;
+      background: var(--dock-tooltip-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--dock-tooltip-border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+
+    body.rtl .dock__tooltip { font-family: 'Cairo', sans-serif; }
+
+    .dock__tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--dock-tooltip-border);
+    }
+
+    .dock__item:hover .dock__tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dock {
+      animation: dockSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      animation-delay: 0.5s;
+    }
+    @keyframes dockSlideIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(30px) scale(0.92); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 940px) {
+      .pricing__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    }
+    @media (max-width: 700px) {
+      .compare__grid { grid-template-columns: 1fr; }
+      .hero { padding: 90px 0 70px; }
+      .compare, .pricing, .faq { padding: 70px 0; }
+      .compare__card, .pricing__card { padding: 30px 22px; }
+      .nav__bar { padding: 12px 14px; }
+      .logo { font-size: 1.1rem; }
+      .logo__tag, .logo__sep { display: none; }
+      .lang-switch__btn { padding: 6px 10px; font-size: 0.72rem; }
+      .dock { gap: 2px; padding: 6px 10px; border-radius: 18px; bottom: 14px; }
+      .dock__item { width: 40px; height: 40px; font-size: 0.92rem; border-radius: 12px; }
+      .dock__sep { height: 22px; margin: 0 2px; }
+      body { padding-bottom: 80px; }
+    }
+    @media (max-width: 440px) {
+      .nav__actions { gap: 5px; }
+      .theme-toggle { width: 36px; height: 36px; font-size: 0.82rem; }
+      .dock { gap: 1px; padding: 5px 8px; border-radius: 16px; }
+      .dock__item { width: 36px; height: 36px; font-size: 0.82rem; border-radius: 10px; }
+      .dock__sep { height: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="atmosphere">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+  </div>
+
+  <!-- ══════ FLOATING BOTTOM DOCK ══════ -->
+  <div class="dock" id="dock">
+    <a href="#hero" class="dock__item active" data-section="hero" onclick="dockScroll(event,'#hero')">
+      <i class="fa-solid fa-house"></i>
+      <span class="dock__tooltip" data-i18n="dock_home">Home</span>
+    </a>
+    <a href="#comparison" class="dock__item" data-section="comparison" onclick="dockScroll(event,'#comparison')">
+      <i class="fa-solid fa-bolt"></i>
+      <span class="dock__tooltip" data-i18n="dock_features">Features</span>
+    </a>
+    <a href="#pricing" class="dock__item" data-section="pricing" onclick="dockScroll(event,'#pricing')">
+      <i class="fa-solid fa-gem"></i>
+      <span class="dock__tooltip" data-i18n="dock_pricing">Pricing</span>
+    </a>
+
+    <div class="dock__sep"></div>
+
+    <button class="dock__item dock__item--contact" onclick="openContactModal()" aria-label="Contact">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="dock__tooltip" data-i18n="dock_contact">Contact</span>
+    </button>
+
+    <div class="dock__sep"></div>
+
+    <a href="https://fahymfx.com/" target="_blank" rel="noopener" class="dock__item dock__item--back">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span class="dock__tooltip" data-i18n="dock_back">Portfolio</span>
+    </a>
+  </div>
+
+  <!-- ══════ CONTACT MODAL ══════ -->
+  <div class="modal-overlay" id="contactModal" onclick="handleModalOverlayClick(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" onclick="closeContactModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal__icon"><i class="fa-solid fa-envelope"></i></div>
+      <div class="modal__title" id="modalTitle" data-i18n="modal_title">Get In Touch</div>
+      <div class="modal__sub" data-i18n="modal_sub">Choose your preferred way to reach out.</div>
+      <div class="modal__links">
+        <a href="https://wa.me/212640339190" target="_blank" rel="noopener" class="modal__link modal__link--wa">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span data-i18n="modal_wa">WhatsApp</span>
+        </a>
+        <a href="https://www.instagram.com/fahym.fx" target="_blank" rel="noopener" class="modal__link modal__link--ig">
+          <i class="fa-brands fa-instagram"></i>
+          <span data-i18n="modal_ig">Instagram · @fahym.fx</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ NAV ══════ -->
+  <nav class="nav">
+    <div class="wrap">
+      <div class="nav__bar glass--nav">
+        <a href="service.html" class="logo">
+          <span class="logo__name">Fahym</span><span class="logo__fx">fx</span>
+          <span class="logo__sep">|</span>
+          <span class="logo__tag" data-i18n="nav_service">Web Services</span>
+        </a>
+        <div class="nav__actions">
+          <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button class="lang-switch__btn active" id="langEN" onclick="switchLang('en')">EN</button>
+            <button class="lang-switch__btn" id="langAR" onclick="switchLang('ar')">AR</button>
+          </div>
+          <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-sun"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════ HERO ══════ -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero__badge reveal">
+        <i class="fa-solid fa-star"></i>
+        <span data-i18n="hero_badge">Premium Web Services · Lifetime Hosting</span>
+      </div>
+      <h1 class="hero__title reveal">
+        <span class="t-white" data-i18n="hero_line1">Stop Sending</span>
+        <span class="t-gold" data-i18n="hero_line2">Google Drive Links.</span>
+      </h1>
+      <p class="hero__sub reveal" data-i18n="hero_sub">Get a <strong>Premium iOS-Style Portfolio</strong> built for you.<br>Zero Monthly Fees. <strong>Lifetime Hosting.</strong> Delivered in days.</p>
+      <div class="reveal">
+        <a href="#pricing" class="btn-hero" onclick="dockScroll(event,'#pricing')">
+          <i class="fa-solid fa-gem"></i>
+          <span data-i18n="hero_cta">View Packages</span>
+          <i class="fa-solid fa-arrow-down"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ COMPARISON ══════ -->
+  <section class="compare" id="comparison">
+    <div class="wrap">
+      <div class="text-c reveal">
+        <div class="sh__label"><i class="fa-solid fa-bolt"></i> <span data-i18n="comp_label">Why Upgrade?</span></div>
+        <h2 class="sh__title" data-i18n="comp_title">Your Current Setup vs. What You Deserve</h2>
+        <p class="sh__desc" data-i18n="comp_desc">One look and clients decide. Make it count.</p>
+      </div>
+      <div class="compare__grid">
+        <div class="compare__card compare__card--bad glass reveal">
+          <div class="compare__icon"><i class="fas fa-times-circle"></i></div>
+          <div class="compare__heading" data-i18n="bad_title">The Old Way</div>
+          <div class="compare__sub" data-i18n="bad_sub">Linktree · Google Drive · PDF</div>
+          <ul class="compare__list">
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_1">Looks generic & unprofessional</span></li>
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_2">Monthly subscription fees eating your profit</span></li>
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_3">Slow to load — clients bounce fast</span></li>
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_4">No SEO — invisible on Google searches</span></li>
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_5">Zero brand identity or trust signals</span></li>
+            <li><i class="fas fa-times-circle ic-bad"></i><span data-i18n="bad_6">Loses leads with no contact integration</span></li>
+          </ul>
+        </div>
+        <div class="compare__card compare__card--good glass reveal">
+          <div class="compare__icon"><i class="fas fa-check-circle"></i></div>
+          <div class="compare__heading" data-i18n="good_title">The Pro Way</div>
+          <div class="compare__sub" data-i18n="good_sub">Custom Website · Fahym fx</div>
+          <ul class="compare__list">
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_1">Premium iOS-style design that impresses instantly</span></li>
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_2">One-time payment — lifetime hosting, no recurring fees</span></li>
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_3">Lightning-fast load time, zero drop-offs</span></li>
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_4">Built-in SEO to attract clients organically</span></li>
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_5">Unique brand identity clients remember & trust</span></li>
+            <li><i class="fas fa-check-circle ic-good"></i><span data-i18n="good_6">WhatsApp & social integration boosts conversions</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ PRICING ══════ -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="text-c reveal">
+        <div class="sh__label"><i class="fa-solid fa-gem"></i> <span data-i18n="price_label">Packages</span></div>
+        <h2 class="sh__title" data-i18n="price_title">Simple, Transparent Pricing</h2>
+        <p class="sh__desc" data-i18n="price_desc">No hidden fees. No recurring charges. Just results.</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing__card glass reveal">
+          <div class="pricing__tier" data-i18n="s_name">Starter</div>
+          <div class="pricing__price"><sup>$</sup>200</div>
+          <div class="pricing__desc" data-i18n="s_desc">Perfect for freelancers taking their first step online.</div>
+          <div class="pricing__line"></div>
+          <ul class="pricing__features">
+            <li><i class="fas fa-check"></i><span data-i18n="s_f1">Single-page portfolio website</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f2">Up to 5 showcased projects</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f3">WhatsApp contact integration</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f4">Mobile-responsive design</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f5">Lifetime free hosting (GitHub Pages)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f6">Glass-style UI template</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="s_f7">Delivered in 3-5 days</span></li>
+          </ul>
+          <button class="btn-order" onclick="orderNow('Starter')">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span data-i18n="order_btn">Order Now</span>
+          </button>
+        </div>
+        <div class="pricing__card pricing__card--pop glass reveal">
+          <div class="pricing__pop-tag">
+            <i class="fa-solid fa-fire"></i>
+            <span data-i18n="pop_badge">Most Popular</span>
+          </div>
+          <div class="pricing__tier" data-i18n="p_name">Pro</div>
+          <div class="pricing__price"><sup>$</sup>400</div>
+          <div class="pricing__desc" data-i18n="p_desc">For serious creatives who want to stand out globally.</div>
+          <div class="pricing__line"></div>
+          <ul class="pricing__features">
+            <li><i class="fas fa-check"></i><span data-i18n="p_f1">Everything in Starter</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f2">Bilingual site (Arabic & English)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f3">SEO optimization (meta, OG tags)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f4">Custom logo design included</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f5">Up to 12 projects with filtering</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f6">Animated hero & scroll effects</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f7">Google Analytics setup</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f8">2 revision rounds</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="p_f9">Delivered in 5-7 days</span></li>
+          </ul>
+          <button class="btn-order btn-order--pop" onclick="orderNow('Pro')">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span data-i18n="order_btn">Order Now</span>
+          </button>
+        </div>
+        <div class="pricing__card glass reveal">
+          <div class="pricing__tier" data-i18n="e_name">Elite</div>
+          <div class="pricing__price"><sup>$</sup>600</div>
+          <div class="pricing__desc" data-i18n="e_desc">Full brand ecosystem for professionals ready to dominate.</div>
+          <div class="pricing__line"></div>
+          <ul class="pricing__features">
+            <li><i class="fas fa-check"></i><span data-i18n="e_f1">Everything in Pro</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f2">Full brand identity system</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f3">Custom domain setup & configuration</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f4">1-on-1 strategy call (60 min)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f5">Multi-page website (up to 4 pages)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f6">Direct WhatsApp integration</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f7">Unlimited projects showcase</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f8">Priority support (30 days post-launch)</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="e_f9">Delivered in 7-10 days</span></li>
+          </ul>
+          <button class="btn-order" onclick="orderNow('Elite')">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span data-i18n="order_btn">Order Now</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FAQ ══════ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="text-c reveal">
+        <div class="sh__label"><i class="fa-solid fa-circle-question"></i> <span data-i18n="faq_label">FAQ</span></div>
+        <h2 class="sh__title" data-i18n="faq_title">Common Questions</h2>
+        <p class="sh__desc" data-i18n="faq_desc">Everything you need to know before ordering.</p>
+      </div>
+      <div class="faq__list">
+        <div class="faq__item glass reveal">
+          <button class="faq__q" onclick="toggleFaq(this)">
+            <span data-i18n="faq1_q">Do I need any coding skills to maintain my site?</span>
+            <div class="faq__icon"><i class="fa-solid fa-plus"></i></div>
+          </button>
+          <div class="faq__a"><div class="faq__a-inner" data-i18n="faq1_a">Absolutely not. I handle 100% of the technical work. Once your site is live, it runs completely on its own — no dashboards, no plugins, no hosting panels. If you ever want changes, just message me on WhatsApp.</div></div>
+        </div>
+        <div class="faq__item glass reveal">
+          <button class="faq__q" onclick="toggleFaq(this)">
+            <span data-i18n="faq2_q">How does "Lifetime Hosting" with zero fees work?</span>
+            <div class="faq__icon"><i class="fa-solid fa-plus"></i></div>
+          </button>
+          <div class="faq__a"><div class="faq__a-inner" data-i18n="faq2_a">Your site is deployed on GitHub Pages — a professional, free-forever platform trusted by millions of developers. Blazing fast, 99.9% uptime, zero monthly cost. That is how I deliver premium quality with no recurring charges.</div></div>
+        </div>
+        <div class="faq__item glass reveal">
+          <button class="faq__q" onclick="toggleFaq(this)">
+            <span data-i18n="faq3_q">How long does delivery take and what do I provide?</span>
+            <div class="faq__icon"><i class="fa-solid fa-plus"></i></div>
+          </button>
+          <div class="faq__a"><div class="faq__a-inner" data-i18n="faq3_a">Delivery ranges from 3-10 days depending on the package. All I need is: your project images or work samples, a short bio (I can write one for you), your social links, and preferred colors if any. I handle design, code, copy, and deployment.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FOOTER ══════ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__logo">
+        <span class="logo__name">Fahym</span><span class="logo__fx">fx</span>
+        <span class="logo__sep">|</span>
+        <span class="logo__tag" data-i18n="nav_service">Web Services</span>
+      </div>
+      <div class="footer__socials">
+        <a href="https://wa.me/212640339190" target="_blank" rel="noopener" class="footer__social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/fahym.fx" target="_blank" rel="noopener" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+      <p class="footer__copy">
+        &copy; 2025 Fahymfx. <span data-i18n="footer_rights">All rights reserved.</span><br>
+        <span data-i18n="footer_tagline">Built with precision & passion — crafting digital identities that convert.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════
+       TRANSLATIONS
+    ══════════════════════════════════════════ */
+    var translations = {
+      en: {
+        nav_service: "Web Services",
+        hero_badge: "Premium Web Services \u00b7 Lifetime Hosting",
+        hero_line1: "Stop Sending", hero_line2: "Google Drive Links.",
+        hero_sub: 'Get a <strong>Premium iOS-Style Portfolio</strong> built for you.<br>Zero Monthly Fees. <strong>Lifetime Hosting.</strong> Delivered in days.',
+        hero_cta: "View Packages",
+        comp_label: "Why Upgrade?", comp_title: "Your Current Setup vs. What You Deserve",
+        comp_desc: "One look and clients decide. Make it count.",
+        bad_title: "The Old Way", bad_sub: "Linktree \u00b7 Google Drive \u00b7 PDF",
+        bad_1: "Looks generic & unprofessional", bad_2: "Monthly subscription fees eating your profit",
+        bad_3: "Slow to load \u2014 clients bounce fast", bad_4: "No SEO \u2014 invisible on Google searches",
+        bad_5: "Zero brand identity or trust signals", bad_6: "Loses leads with no contact integration",
+        good_title: "The Pro Way", good_sub: "Custom Website \u00b7 Fahym fx",
+        good_1: "Premium iOS-style design that impresses instantly",
+        good_2: "One-time payment \u2014 lifetime hosting, no recurring fees",
+        good_3: "Lightning-fast load time, zero drop-offs",
+        good_4: "Built-in SEO to attract clients organically",
+        good_5: "Unique brand identity clients remember & trust",
+        good_6: "WhatsApp & social integration boosts conversions",
+        price_label: "Packages", price_title: "Simple, Transparent Pricing",
+        price_desc: "No hidden fees. No recurring charges. Just results.",
+        s_name: "Starter", s_desc: "Perfect for freelancers taking their first step online.",
+        s_f1: "Single-page portfolio website", s_f2: "Up to 5 showcased projects",
+        s_f3: "WhatsApp contact integration", s_f4: "Mobile-responsive design",
+        s_f5: "Lifetime free hosting (GitHub Pages)", s_f6: "Glass-style UI template",
+        s_f7: "Delivered in 3\u20135 days", pop_badge: "Most Popular",
+        p_name: "Pro", p_desc: "For serious creatives who want to stand out globally.",
+        p_f1: "Everything in Starter", p_f2: "Bilingual site (Arabic & English)",
+        p_f3: "SEO optimization (meta, OG tags)", p_f4: "Custom logo design included",
+        p_f5: "Up to 12 projects with filtering", p_f6: "Animated hero & scroll effects",
+        p_f7: "Google Analytics setup", p_f8: "2 revision rounds", p_f9: "Delivered in 5\u20137 days",
+        e_name: "Elite", e_desc: "Full brand ecosystem for professionals ready to dominate.",
+        e_f1: "Everything in Pro", e_f2: "Full brand identity system",
+        e_f3: "Custom domain setup & configuration", e_f4: "1-on-1 strategy call (60 min)",
+        e_f5: "Multi-page website (up to 4 pages)", e_f6: "Direct WhatsApp integration",
+        e_f7: "Unlimited projects showcase", e_f8: "Priority support (30 days post-launch)",
+        e_f9: "Delivered in 7\u201310 days", order_btn: "Order Now",
+        faq_label: "FAQ", faq_title: "Common Questions",
+        faq_desc: "Everything you need to know before ordering.",
+        faq1_q: "Do I need any coding skills to maintain my site?",
+        faq1_a: "Absolutely not. I handle 100% of the technical work. Once your site is live, it runs completely on its own \u2014 no dashboards, no plugins, no hosting panels. If you ever want changes, just message me on WhatsApp.",
+        faq2_q: 'How does "Lifetime Hosting" with zero fees work?',
+        faq2_a: "Your site is deployed on GitHub Pages \u2014 a professional, free-forever platform trusted by millions of developers. Blazing fast, 99.9% uptime, zero monthly cost.",
+        faq3_q: "How long does delivery take and what do I provide?",
+        faq3_a: "Delivery ranges from 3\u201310 days depending on the package. All I need is: your project images or work samples, a short bio, your social links, and preferred colors if any. I handle everything else.",
+        contact_label: "Get In Touch", contact_title: "Ready to Start?",
+        contact_desc: "Reach out via WhatsApp or follow on Instagram.",
+        contact_wa_label: "WhatsApp", contact_ig_label: "Instagram",
+        footer_rights: "All rights reserved.",
+        footer_tagline: "Built with precision & passion \u2014 crafting digital identities that convert.",
+        wa_Starter: "Hello, I'm interested in the Starter website service.",
+        wa_Pro: "Hello, I'm interested in the Pro website service.",
+        wa_Elite: "Hello, I'm interested in the Elite website service.",
+        dock_home: "Home", dock_features: "Features", dock_pricing: "Pricing",
+        dock_contact: "Contact", dock_back: "Portfolio",
+        modal_title: "Get In Touch", modal_sub: "Choose your preferred way to reach out.",
+        modal_wa: "WhatsApp", modal_ig: "Instagram \u00b7 @fahym.fx"
+      },
+      ar: {
+        nav_service: "\u062e\u062f\u0645\u0627\u062a \u0627\u0644\u0648\u064a\u0628",
+        hero_badge: "\u062e\u062f\u0645\u0627\u062a \u0648\u064a\u0628 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\u0629 \u00b7 \u0627\u0633\u062a\u0636\u0627\u0641\u0629 \u0645\u062f\u0649 \u0627\u0644\u062d\u064a\u0627\u0629",
+        hero_line1: "\u062a\u0648\u0642\u0641 \u0639\u0646 \u0625\u0631\u0633\u0627\u0644",
+        hero_line2: "\u0631\u0648\u0627\u0628\u0637 \u062f\u0631\u0627\u064a\u0641.",
+        hero_sub: '\u0627\u062d\u0635\u0644 \u0639\u0644\u0649 <strong>\u0628\u0648\u0631\u062a\u0641\u0648\u0644\u064a\u0648 \u0627\u062d\u062a\u0631\u0627\u0641\u064a</strong> \u0628\u0623\u0633\u0644\u0648\u0628 iOS.<br>\u0628\u062f\u0648\u0646 \u0631\u0633\u0648\u0645 \u0634\u0647\u0631\u064a\u0629. <strong>\u0627\u0633\u062a\u0636\u0627\u0641\u0629 \u0645\u062f\u0649 \u0627\u0644\u062d\u064a\u0627\u0629.</strong> \u064a\u064f\u0633\u0644\u064e\u0651\u0645 \u0641\u064a \u0623\u064a\u0627\u0645.',
+        hero_cta: "\u0639\u0631\u0636 \u0627\u0644\u0628\u0627\u0642\u0627\u062a",
+        comp_label: "\u0644\u0645\u0627\u0630\u0627 \u0627\u0644\u062a\u0631\u0642\u064a\u0629\u061f",
+        comp_title: "\u0648\u0636\u0639\u0643 \u0627\u0644\u062d\u0627\u0644\u064a \u0645\u0642\u0627\u0628\u0644 \u0645\u0627 \u062a\u0633\u062a\u062d\u0642\u0647",
+        comp_desc: "\u0646\u0638\u0631\u0629 \u0648\u0627\u062d\u062f\u0629 \u062a\u062d\u062f\u062f \u0642\u0631\u0627\u0631 \u0627\u0644\u0639\u0645\u064a\u0644. \u0627\u062c\u0639\u0644\u0647\u0627 \u062a\u0633\u062a\u062d\u0642.",
+        bad_title: "\u0627\u0644\u0637\u0631\u064a\u0642\u0629 \u0627\u0644\u0642\u062f\u064a\u0645\u0629",
+        bad_sub: "\u0644\u064a\u0646\u0643\u062a\u0631\u064a \u00b7 Google Drive \u00b7 PDF",
+        bad_1: "\u0645\u0638\u0647\u0631 \u0639\u0634\u0648\u0627\u0626\u064a \u0648\u063a\u064a\u0631 \u0627\u062d\u062a\u0631\u0627\u0641\u064a",
+        bad_2: "\u0631\u0633\u0648\u0645 \u0627\u0634\u062a\u0631\u0627\u0643 \u0634\u0647\u0631\u064a\u0629 \u062a\u0623\u0643\u0644 \u0623\u0631\u0628\u0627\u062d\u0643",
+        bad_3: "\u062a\u062d\u0645\u064a\u0644 \u0628\u0637\u064a\u0621 \u2014 \u0627\u0644\u0639\u0645\u0644\u0627\u0621 \u064a\u063a\u0627\u062f\u0631\u0648\u0646 \u0633\u0631\u064a\u0639\u0627\u064b",
+        bad_4: "\u0644\u0627 SEO \u2014 \u063a\u064a\u0631 \u0645\u0631\u0626\u064a \u0641\u064a \u0628\u062d\u062b Google",
+        bad_5: "\u0644\u0627 \u0647\u0648\u064a\u0629 \u0628\u0635\u0631\u064a\u0629 \u0623\u0648 \u0645\u0635\u062f\u0627\u0642\u064a\u0629",
+        bad_6: "\u062a\u062e\u0633\u0631 \u0639\u0645\u0644\u0627\u0621\u0643 \u0644\u063a\u064a\u0627\u0628 \u0648\u0633\u064a\u0644\u0629 \u0627\u0644\u062a\u0648\u0627\u0635\u0644",
+        good_title: "\u0627\u0644\u0637\u0631\u064a\u0642\u0629 \u0627\u0644\u0627\u062d\u062a\u0631\u0627\u0641\u064a\u0629",
+        good_sub: "\u0645\u0648\u0642\u0639 \u0645\u062e\u0635\u0635 \u00b7 Fahym fx",
+        good_1: "\u062a\u0635\u0645\u064a\u0645 iOS \u0641\u0627\u062e\u0631 \u064a\u062a\u0631\u0643 \u0627\u0646\u0637\u0628\u0627\u0639\u0627\u064b \u0641\u0648\u0631\u064a\u0627\u064b",
+        good_2: "\u062f\u0641\u0639\u0629 \u0648\u0627\u062d\u062f\u0629 \u2014 \u0627\u0633\u062a\u0636\u0627\u0641\u0629 \u0645\u062f\u0649 \u0627\u0644\u062d\u064a\u0627\u0629 \u0628\u062f\u0648\u0646 \u0631\u0633\u0648\u0645",
+        good_3: "\u0633\u0631\u0639\u0629 \u062a\u062d\u0645\u064a\u0644 \u0641\u0627\u0626\u0642\u0629\u060c \u0635\u0641\u0631 \u0645\u063a\u0627\u062f\u0631\u0629",
+        good_4: "\u062a\u062d\u0633\u064a\u0646 \u0645\u062d\u0631\u0643\u0627\u062a \u0627\u0644\u0628\u062d\u062b \u0644\u0627\u0633\u062a\u0642\u0637\u0627\u0628 \u0627\u0644\u0639\u0645\u0644\u0627\u0621",
+        good_5: "\u0647\u0648\u064a\u0629 \u0628\u0635\u0631\u064a\u0629 \u0641\u0631\u064a\u062f\u0629 \u064a\u062a\u0630\u0643\u0631\u0647\u0627 \u0627\u0644\u0639\u0645\u0644\u0627\u0621",
+        good_6: "\u0648\u0627\u062a\u0633\u0627\u0628 \u0648\u0645\u0648\u0627\u0642\u0639 \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u062a\u0639\u0632\u0632 \u0627\u0644\u062a\u062d\u0648\u064a\u0644\u0627\u062a",
+        price_label: "\u0627\u0644\u0628\u0627\u0642\u0627\u062a",
+        price_title: "\u0623\u0633\u0639\u0627\u0631 \u0628\u0633\u064a\u0637\u0629 \u0648\u0634\u0641\u0627\u0641\u0629",
+        price_desc: "\u0644\u0627 \u0631\u0633\u0648\u0645 \u062e\u0641\u064a\u0629. \u0644\u0627 \u062a\u0643\u0627\u0644\u064a\u0641 \u0645\u062a\u0643\u0631\u0631\u0629. \u0641\u0642\u0637 \u0646\u062a\u0627\u0626\u062c.",
+        s_name: "\u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629", s_desc: "\u0645\u062b\u0627\u0644\u064a\u0629 \u0644\u0644\u0645\u0633\u062a\u0642\u0644\u064a\u0646 \u0627\u0644\u0630\u064a\u0646 \u064a\u062e\u0637\u0648\u0646 \u062e\u0637\u0648\u0627\u062a\u0647\u0645 \u0627\u0644\u0623\u0648\u0644\u0649.",
+        s_f1: "\u0645\u0648\u0642\u0639 \u0628\u0648\u0631\u062a\u0641\u0648\u0644\u064a\u0648 \u0635\u0641\u062d\u0629 \u0648\u0627\u062d\u062f\u0629",
+        s_f2: "\u062d\u062a\u0649 5 \u0645\u0634\u0627\u0631\u064a\u0639", s_f3: "\u062a\u0643\u0627\u0645\u0644 \u0648\u0627\u062a\u0633\u0627\u0628",
+        s_f4: "\u062a\u0635\u0645\u064a\u0645 \u0645\u062a\u062c\u0627\u0648\u0628 \u0645\u0639 \u0627\u0644\u062c\u0648\u0627\u0644",
+        s_f5: "\u0627\u0633\u062a\u0636\u0627\u0641\u0629 \u0645\u062c\u0627\u0646\u064a\u0629 \u0645\u062f\u0649 \u0627\u0644\u062d\u064a\u0627\u0629",
+        s_f6: "\u0642\u0627\u0644\u0628 \u062a\u0635\u0645\u064a\u0645 \u0632\u062c\u0627\u062c\u064a \u0641\u0627\u062e\u0631",
+        s_f7: "\u064a\u064f\u0633\u0644\u064e\u0651\u0645 \u062e\u0644\u0627\u0644 3\u20135 \u0623\u064a\u0627\u0645",
+        pop_badge: "\u0627\u0644\u0623\u0643\u062b\u0631 \u0637\u0644\u0628\u0627\u064b",
+        p_name: "\u0627\u0644\u0645\u062d\u062a\u0631\u0641", p_desc: "\u0644\u0644\u0645\u0628\u062f\u0639\u064a\u0646 \u0627\u0644\u0631\u0627\u063a\u0628\u064a\u0646 \u0641\u064a \u0627\u0644\u062a\u0645\u064a\u0632 \u0639\u0627\u0644\u0645\u064a\u0627\u064b.",
+        p_f1: "\u0643\u0644 \u0645\u0627 \u0641\u064a \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629",
+        p_f2: "\u0645\u0648\u0642\u0639 \u062b\u0646\u0627\u0626\u064a \u0627\u0644\u0644\u063a\u0629",
+        p_f3: "\u062a\u062d\u0633\u064a\u0646 SEO", p_f4: "\u062a\u0635\u0645\u064a\u0645 \u0634\u0639\u0627\u0631 \u0645\u062e\u0635\u0635",
+        p_f5: "\u062d\u062a\u0649 12 \u0645\u0634\u0631\u0648\u0639\u0627\u064b \u0645\u0639 \u0641\u0644\u062a\u0631\u0629",
+        p_f6: "\u062a\u0623\u062b\u064a\u0631\u0627\u062a \u062d\u0631\u0643\u064a\u0629 \u0648\u0627\u0646\u064a\u0645\u064a\u0634\u0646",
+        p_f7: "\u0625\u0639\u062f\u0627\u062f Google Analytics",
+        p_f8: "\u062c\u0648\u0644\u062a\u0627 \u0645\u0631\u0627\u062c\u0639\u0629",
+        p_f9: "\u064a\u064f\u0633\u0644\u064e\u0651\u0645 \u062e\u0644\u0627\u0644 5\u20137 \u0623\u064a\u0627\u0645",
+        e_name: "\u0627\u0644\u0646\u062e\u0628\u0629", e_desc: "\u0645\u0646\u0638\u0648\u0645\u0629 \u0639\u0644\u0627\u0645\u0629 \u062a\u062c\u0627\u0631\u064a\u0629 \u0643\u0627\u0645\u0644\u0629 \u0644\u0644\u0645\u062d\u062a\u0631\u0641\u064a\u0646.",
+        e_f1: "\u0643\u0644 \u0645\u0627 \u0641\u064a \u0627\u0644\u0645\u062d\u062a\u0631\u0641",
+        e_f2: "\u0646\u0638\u0627\u0645 \u0647\u0648\u064a\u0629 \u0628\u0635\u0631\u064a\u0629 \u0643\u0627\u0645\u0644",
+        e_f3: "\u0625\u0639\u062f\u0627\u062f \u0648\u0631\u0628\u0637 \u0646\u0637\u0627\u0642 \u0645\u062e\u0635\u0635",
+        e_f4: "\u062c\u0644\u0633\u0629 \u0627\u0633\u062a\u0631\u0627\u062a\u064a\u062c\u064a\u0629 (60 \u062f\u0642\u064a\u0642\u0629)",
+        e_f5: "\u0645\u0648\u0642\u0639 \u0645\u062a\u0639\u062f\u062f \u0627\u0644\u0635\u0641\u062d\u0627\u062a (\u062d\u062a\u0649 4)",
+        e_f6: "\u062a\u0643\u0627\u0645\u0644 \u0645\u0628\u0627\u0634\u0631 \u0645\u0639 \u0648\u0627\u062a\u0633\u0627\u0628",
+        e_f7: "\u0639\u0631\u0636 \u0645\u0634\u0627\u0631\u064a\u0639 \u063a\u064a\u0631 \u0645\u062d\u062f\u0648\u062f",
+        e_f8: "\u062f\u0639\u0645 \u0630\u0648 \u0623\u0648\u0644\u0648\u064a\u0629 (30 \u064a\u0648\u0645\u0627\u064b)",
+        e_f9: "\u064a\u064f\u0633\u0644\u064e\u0651\u0645 \u062e\u0644\u0627\u0644 7\u201310 \u0623\u064a\u0627\u0645",
+        order_btn: "\u0627\u0637\u0644\u0628 \u0627\u0644\u0622\u0646",
+        faq_label: "\u0627\u0644\u0623\u0633\u0626\u0644\u0629 \u0627\u0644\u0634\u0627\u0626\u0639\u0629",
+        faq_title: "\u0623\u0633\u0626\u0644\u0629 \u0634\u0627\u0626\u0639\u0629",
+        faq_desc: "\u0643\u0644 \u0645\u0627 \u062a\u062d\u062a\u0627\u062c \u0645\u0639\u0631\u0641\u062a\u0647 \u0642\u0628\u0644 \u0627\u0644\u0637\u0644\u0628.",
+        faq1_q: "\u0647\u0644 \u0623\u062d\u062a\u0627\u062c \u062e\u0628\u0631\u0629 \u0628\u0631\u0645\u062c\u064a\u0629\u061f",
+        faq1_a: "\u0628\u0627\u0644\u0637\u0628\u0639 \u0644\u0627. \u0623\u062a\u0648\u0644\u0649 100% \u0645\u0646 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u062a\u0642\u0646\u064a. \u0628\u0645\u062c\u0631\u062f \u0625\u0637\u0644\u0627\u0642 \u0645\u0648\u0642\u0639\u0643 \u064a\u0639\u0645\u0644 \u062a\u0644\u0642\u0627\u0626\u064a\u0627\u064b. \u0625\u0646 \u0623\u0631\u062f\u062a \u062a\u0639\u062f\u064a\u0644\u060c \u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u064a \u0639\u0644\u0649 \u0648\u0627\u062a\u0633\u0627\u0628.",
+        faq2_q: "\u0643\u064a\u0641 \u062a\u0639\u0645\u0644 \u0627\u0644\u0627\u0633\u062a\u0636\u0627\u0641\u0629 \u0627\u0644\u0645\u062c\u0627\u0646\u064a\u0629 \u0645\u062f\u0649 \u0627\u0644\u062d\u064a\u0627\u0629\u061f",
+        faq2_a: "\u064a\u064f\u0646\u0634\u0631 \u0645\u0648\u0642\u0639\u0643 \u0639\u0644\u0649 GitHub Pages \u2014 \u0645\u0646\u0635\u0629 \u0645\u062c\u0627\u0646\u064a\u0629 \u062a\u0645\u0627\u0645\u0627\u064b \u0628\u0648\u0642\u062a \u062a\u0634\u063a\u064a\u0644 99.9% \u0648\u0644\u0627 \u062a\u0643\u0644\u0641\u0643 \u0634\u064a\u0626\u0627\u064b.",
+        faq3_q: "\u0643\u0645 \u062a\u0633\u062a\u063a\u0631\u0642 \u0645\u062f\u0629 \u0627\u0644\u062a\u0633\u0644\u064a\u0645\u061f",
+        faq3_a: "\u062a\u062a\u0631\u0627\u0648\u062d \u0628\u064a\u0646 3 \u064810 \u0623\u064a\u0627\u0645. \u0643\u0644 \u0645\u0627 \u0623\u062d\u062a\u0627\u062c\u0647: \u0635\u0648\u0631 \u0645\u0634\u0627\u0631\u064a\u0639\u0643\u060c \u0646\u0628\u0630\u0629\u060c \u0631\u0648\u0627\u0628\u0637 \u0627\u0644\u062a\u0648\u0627\u0635\u0644\u060c \u0648\u0623\u0644\u0648\u0627\u0646\u0643 \u0627\u0644\u0645\u0641\u0636\u0644\u0629.",
+        contact_label: "\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627", contact_title: "\u0645\u0633\u062a\u0639\u062f \u0644\u0644\u0628\u062f\u0621\u061f",
+        contact_desc: "\u062a\u0648\u0627\u0635\u0644 \u0639\u0628\u0631 \u0648\u0627\u062a\u0633\u0627\u0628 \u0623\u0648 \u062a\u0627\u0628\u0639\u0646\u0627 \u0639\u0644\u0649 \u0625\u0646\u0633\u062a\u063a\u0631\u0627\u0645.",
+        contact_wa_label: "\u0648\u0627\u062a\u0633\u0627\u0628", contact_ig_label: "\u0625\u0646\u0633\u062a\u063a\u0631\u0627\u0645",
+        footer_rights: "\u062c\u0645\u064a\u0639 \u0627\u0644\u062d\u0642\u0648\u0642 \u0645\u062d\u0641\u0648\u0638\u0629.",
+        footer_tagline: "\u0645\u0628\u0646\u064a \u0628\u062f\u0642\u0629 \u0648\u0634\u063a\u0641 \u2014 \u0644\u0635\u064a\u0627\u063a\u0629 \u0647\u0648\u064a\u0627\u062a \u0631\u0642\u0645\u064a\u0629 \u062a\u064f\u062d\u0648\u0651\u0650\u0644.",
+        wa_Starter: "\u0645\u0631\u062d\u0628\u0627\u064b\u060c \u0623\u0646\u0627 \u0645\u0647\u062a\u0645 \u0628\u0627\u0644\u0628\u0627\u0642\u0629 \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629.",
+        wa_Pro: "\u0645\u0631\u062d\u0628\u0627\u064b\u060c \u0623\u0646\u0627 \u0645\u0647\u062a\u0645 \u0628\u0628\u0627\u0642\u0629 \u0627\u0644\u0645\u062d\u062a\u0631\u0641.",
+        wa_Elite: "\u0645\u0631\u062d\u0628\u0627\u064b\u060c \u0623\u0646\u0627 \u0645\u0647\u062a\u0645 \u0628\u0628\u0627\u0642\u0629 \u0627\u0644\u0646\u062e\u0628\u0629.",
+        dock_home: "\u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629", dock_features: "\u0627\u0644\u0645\u0645\u064a\u0632\u0627\u062a",
+        dock_pricing: "\u0627\u0644\u0623\u0633\u0639\u0627\u0631", dock_whatsapp: "\u0648\u0627\u062a\u0633\u0627\u0628",
+        dock_instagram: "\u0625\u0646\u0633\u062a\u063a\u0631\u0627\u0645", dock_back: "\u0627\u0644\u0628\u0648\u0631\u062a\u0641\u0648\u0644\u064a\u0648"
+      }
+    };
+
+    /* ══════ STATE ══════ */
+    var activeLang = 'en';
+
+    /* ══════ LANGUAGE ══════ */
+    function switchLang(lang) {
+      activeLang = lang;
+      var root = document.documentElement;
+      var body = document.body;
+      if (lang === 'ar') {
+        root.setAttribute('lang','ar'); root.setAttribute('dir','rtl');
+        body.classList.add('rtl');
+      } else {
+        root.setAttribute('lang','en'); root.setAttribute('dir','ltr');
+        body.classList.remove('rtl');
+      }
+      document.getElementById('langEN').classList.toggle('active', lang==='en');
+      document.getElementById('langAR').classList.toggle('active', lang==='ar');
+      var data = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (data[key] !== undefined) el.innerHTML = data[key];
+      });
+      document.title = lang==='ar' ? 'Fahym fx | \u062e\u062f\u0645\u0627\u062a \u0627\u0644\u0648\u064a\u0628' : 'Fahym fx | Web Services';
+    }
+
+    /* ══════ THEME ══════ */
+    function toggleTheme() {
+      var root = document.documentElement;
+      root.classList.toggle('light');
+    }
+
+    /* ══════ ORDER ══════ */
+    function orderNow(pkg) {
+      var data = translations[activeLang];
+      var msg = data['wa_' + pkg] || '';
+      window.open('https://wa.me/212640339190?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    /* ══════ FAQ ══════ */
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq__item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq__item').forEach(function(el) { el.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    }
+
+    /* ══════ CONTACT MODAL ══════ */
+    function openContactModal() {
+      document.getElementById('contactModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleModalOverlayClick(e) {
+      if (e.target === document.getElementById('contactModal')) closeContactModal();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContactModal();
+    });
+
+    /* ══════ DOCK SCROLL ══════ */
+    function dockScroll(e, selector) {
+      e.preventDefault();
+      var target = document.querySelector(selector);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* ══════ SCROLL SPY FOR DOCK ══════ */
+    var spySections = ['hero', 'comparison', 'pricing'];
+    var dockItems = document.querySelectorAll('.dock__item[data-section]');
+
+    function updateDockActive() {
+      var scrollY = window.scrollY + window.innerHeight / 3;
+      var current = '';
+      spySections.forEach(function(id) {
+        var sec = document.getElementById(id);
+        if (sec && sec.offsetTop <= scrollY) {
+          current = id;
+        }
+      });
+      dockItems.forEach(function(item) {
+        if (item.getAttribute('data-section') === current) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateDockActive, { passive: true });
+    updateDockActive();
+
+    /* ══════ REVEAL ══════ */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry, idx) {
+        if (entry.isIntersecting) {
+          setTimeout(function() { entry.target.classList.add('visible'); }, idx * 90);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+
+    /* ══════ SMOOTH SCROLL (non-dock links) ══════ */
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      if (!a.closest('.dock')) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
