@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fahym fx – Bio Link</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C2B280;
+      --gold-glow: rgba(194, 178, 128, 0.25);
+      --bg: #050505;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: #C2B280;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem 1rem 3rem;
+      transition: direction 0.3s;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body.rtl {
+      direction: rtl;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    /* Ambient background blobs */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-blob-1 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, #C2B280, transparent);
+      top: -100px; left: -100px;
+    }
+    .bg-blob-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #C2B280, transparent);
+      bottom: -80px; right: -80px;
+    }
+
+    /* ── LANGUAGE TOGGLE ── */
+    .lang-toggle-wrap {
+      position: fixed;
+      top: 1.1rem;
+      right: 1.1rem;
+      z-index: 100;
+    }
+    body.rtl .lang-toggle-wrap {
+      right: auto;
+      left: 1.1rem;
+    }
+
+    .lang-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--card-border);
+      border-radius: 50px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .lang-btn:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .lang-btn .lang-en,
+    .lang-btn .lang-ar {
+      transition: color 0.25s;
+    }
+    .lang-btn .lang-active {
+      color: var(--gold);
+    }
+    .lang-btn .lang-divider {
+      color: rgba(255,255,255,0.25);
+      font-weight: 400;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin-top: 3rem;
+    }
+
+    /* ── PROFILE IMAGE ── */
+    .profile-img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 30px;
+      border: 2px solid #C2B280;
+      box-shadow: 0 0 20px rgba(194, 178, 128, 0.2);
+      animation: float 3s ease-in-out infinite;
+      margin-bottom: 1.25rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* ── BRAND TITLE ── */
+    .brand-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── BIO ── */
+    .bio-text {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: 0.01em;
+      transition: opacity 0.3s;
+    }
+    body.rtl .bio-text {
+      font-size: 0.95rem;
+      letter-spacing: 0;
+    }
+
+    /* ── LINK CARDS ── */
+    .links-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      width: 100%;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      color: #fff;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(194,178,128,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      border-radius: inherit;
+    }
+
+    .link-card:hover::before { opacity: 1; }
+
+    .link-card:hover {
+      border-color: var(--card-hover-border);
+      box-shadow: 0 0 22px var(--gold-glow), 0 8px 30px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .link-card:active {
+      transform: translateY(-1px);
+    }
+
+    /* Icon box */
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      border-radius: 12px;
+      background: rgba(194, 178, 128, 0.1);
+      border: 1px solid rgba(194, 178, 128, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .link-card:hover .card-icon {
+      background: rgba(194, 178, 128, 0.18);
+      border-color: rgba(194, 178, 128, 0.5);
+    }
+
+    .card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #C2B280;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Text block */
+    .card-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      transition: color 0.25s;
+    }
+    .link-card:hover .card-title { color: var(--gold); }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+    }
+    body.rtl .card-title { font-size: 1rem; }
+    body.rtl .card-sub   { font-size: 0.82rem; }
+
+    /* Arrow */
+    .card-arrow {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      opacity: 0.3;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .link-card:hover .card-arrow {
+      opacity: 0.85;
+      transform: translateX(3px);
+    }
+    body.rtl .link-card:hover .card-arrow {
+      transform: translateX(-3px);
+    }
+    .card-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: #C2B280;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    body.rtl .card-arrow svg {
+      transform: scaleX(-1);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(194,178,128,0.2), transparent);
+      margin: 2rem 0 1.6rem;
+    }
+
+    /* ── FOOTER SOCIAL ICONS ── */
+    .footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .footer-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.9rem;
+    }
+
+    .social-link {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, transform 0.25s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      background: rgba(194, 178, 128, 0.1);
+      box-shadow: 0 0 14px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ── COPYRIGHT ── */
+    .copyright {
+      margin-top: 1.6rem;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.15);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FADE TRANSITION FOR LANGUAGE SWITCH ── */
+    .fade-out { opacity: 0; transform: translateY(6px); }
+    .fade-in  { opacity: 1; transform: translateY(0);   transition: opacity 0.35s ease, transform 0.35s ease; }
+  </style>
+</head>
+<body id="body">
+
+  <!-- Ambient Blobs -->
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+
+  <!-- Language Toggle -->
+  <div class="lang-toggle-wrap">
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Toggle Language">
+      <span class="lang-en lang-active" id="lblEN">EN</span>
+      <span class="lang-divider">|</span>
+      <span class="lang-ar" id="lblAR">AR</span>
+    </button>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container" id="mainContainer">
+
+    <!-- Profile Picture -->
+    <img
+      class="profile-img"
+      src="https://i.postimg.cc/NG3jBzyf/1772054729139-019c96b1-2814-754b-8541-c0550c64a1c9.png"
+      alt="Fahym fx Profile Picture"
+    />
+
+    <!-- Brand Title (exact HTML as required) -->
+    <h1 class="brand-title">
+      <span style="color: #ffffff;">Fahym</span>
+      <span style="color: #C2B280;">fx</span>
+    </h1>
+
+    <!-- Bio -->
+    <p class="bio-text" id="bio">Video Editor &amp; Web Designer</p>
+
+    <!-- Link Cards -->
+    <div class="links-wrapper">
+
+      <!-- Card 1: Portfolio & Services -->
+      <a class="link-card" href="https://fahymfx.com/" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <!-- Film / Video Icon -->
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="3"/>
+            <line x1="7" y1="2" x2="7" y2="22"/>
+            <line x1="17" y1="2" x2="17" y2="22"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <line x1="2" y1="7" x2="7" y2="7"/>
+            <line x1="17" y1="7" x2="22" y2="7"/>
+            <line x1="17" y1="17" x2="22" y2="17"/>
+            <line x1="2" y1="17" x2="7" y2="17"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <span class="card-title" id="card1Title">Video Editing Portfolio</span>
+          <span class="card-sub"   id="card1Sub">View My Best Work</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </a>
+
+      <!-- Card 2: Get Your Own Portfolio -->
+      <a class="link-card" href="https://fahymfx.com/service" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <!-- Globe / Code Icon -->
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <span class="card-title" id="card2Title">Get Your Own Portfolio</span>
+          <span class="card-sub"   id="card2Sub">For Video Editors</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Footer Social Icons -->
+    <div class="footer">
+      <span class="footer-label" id="footerLabel">Connect</span>
+      <div class="social-icons">
+
+        <!-- WhatsApp -->
+        <a class="social-link" href="https://wa.me/212640339190" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z" fill="rgba(194,178,128,0.15)"/>
+            <path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.64.07a8.1 8.1 0 0 1-2.38-1.47 8.9 8.9 0 0 1-1.65-2.05c-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52s.2-.3.3-.5.05-.37-.02-.52-.67-1.6-.91-2.2c-.24-.57-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42s.25-1.29.17-1.42-.27-.2-.57-.35z" fill="#C2B280"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a class="social-link" href="https://www.instagram.com/fahym.fx" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C2B280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="#C2B280" stroke="none"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <p class="copyright">© 2025 Fahymfx · All rights reserved</p>
+
+  </div><!-- /container -->
+
+  <script>
+    /* ────────────────────────────────────────────
+       BILINGUAL DICTIONARY
+    ──────────────────────────────────────────── */
+    const dict = {
+      en: {
+        bio:        "Video Editor & Web Designer",
+        card1Title: "Video Editing Portfolio",
+        card1Sub:   "View My Best Work",
+        card2Title: "Get Your Own Portfolio",
+        card2Sub:   "For Video Editors",
+        footer:     "Connect",
+        langLabel:  { en: true }
+      },
+      ar: {
+        bio:        "مونتير ومصمم مواقع",
+        card1Title: "معرض أعمال المونتاج",
+        card1Sub:   "شاهد أفضل أعمالي",
+        card2Title: "احصل على موقعك الخاص",
+        card2Sub:   "للمونتيرين وصناع المحتوى",
+        footer:     "تواصل معي",
+        langLabel:  { ar: true }
+      }
+    };
+
+    let currentLang = 'en';
+
+    function applyLang(lang) {
+      const d = dict[lang];
+      const body = document.getElementById('body');
+      const container = document.getElementById('mainContainer');
+
+      /* Fade out */
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(6px)';
+      container.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+
+      setTimeout(() => {
+        /* Update text */
+        document.getElementById('bio').textContent        = d.bio;
+        document.getElementById('card1Title').textContent = d.card1Title;
+        document.getElementById('card1Sub').textContent   = d.card1Sub;
+        document.getElementById('card2Title').textContent = d.card2Title;
+        document.getElementById('card2Sub').textContent   = d.card2Sub;
+        document.getElementById('footerLabel').textContent = d.footer;
+
+        /* RTL / LTR */
+        if (lang === 'ar') {
+          body.classList.add('rtl');
+          body.setAttribute('dir', 'rtl');
+          document.documentElement.setAttribute('lang', 'ar');
+        } else {
+          body.classList.remove('rtl');
+          body.setAttribute('dir', 'ltr');
+          document.documentElement.setAttribute('lang', 'en');
+        }
+
+        /* Toggle button labels */
+        document.getElementById('lblEN').classList.toggle('lang-active', lang === 'en');
+        document.getElementById('lblAR').classList.toggle('lang-active', lang === 'ar');
+
+        /* Fade in */
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 250);
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      applyLang(currentLang);
+    }
+
+    /* Init */
+    applyLang('en');
+  </script>
+</body>
+</html>
