@@ -96,84 +96,95 @@
         }
 
         /* =============================================
-           PRELOADER — Apple Optical Glass Dissolve
+           PRELOADER — iOS 26 Liquid Glass Iteration
            ============================================= */
         #preloader {
             position: fixed; inset: 0; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: #000;
-            transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), visibility 0.8s;
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            overflow: hidden;
         }
 
         #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        .pre-glass {
+        .pre-ambient-glow {
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(194,178,128,0.2) 0%, transparent 70%);
+            filter: blur(50px);
+            animation: pre-glow-pulse 4s ease-in-out infinite alternate;
+        }
+
+        .pre-container {
             position: relative;
-            width: 100px; height: 100px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 32px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 2;
         }
 
-        /* Outer spinning ring */
-        .pre-ring {
-            position: absolute; inset: 0; border-radius: 28px;
-            background: transparent;
-            border: 1.5px solid transparent;
-            border-top-color: #C2B280;
-            border-right-color: rgba(194,178,128,0.3);
-            animation: pre-spin 1.4s cubic-bezier(0.4,0,0.2,1) infinite;
-        }
-
-        /* Inner glass card */
-        .pre-inner {
-            width: 72px; height: 72px; border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%);
+        .pre-glass-card {
+            width: 130px; height: 130px;
+            border-radius: 36px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
             border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow:
+            box-shadow: 
                 inset 0 1px 0 rgba(255,255,255,0.15),
-                0 0 40px rgba(194,178,128,0.12);
+                inset 0 0 20px rgba(194,178,128,0.05),
+                0 30px 60px rgba(0,0,0,0.4),
+                0 0 40px rgba(194,178,128,0.1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: pre-float 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        .pre-logo {
-            font-size: 1.4rem; font-weight: 900; letter-spacing: -0.05em;
-            color: #C2B280;
-            text-shadow: 0 0 20px rgba(194,178,128,0.5);
+        .pre-glass-card::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+            animation: pre-shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
-        /* Brand logo reusable class */
-        .brand-logo {
-            height: 30px;
-            width: auto;
-            vertical-align: middle;
-            margin-right: 12px;
-            filter: drop-shadow(0 0 5px rgba(194,178,128,0.3));
-        }
+
         .pre-logo-img {
-            width: 44px; height: 44px; object-fit: contain;
-            filter: drop-shadow(0 0 10px rgba(194,178,128,0.5));
+            width: 50px; height: 50px; object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+            position: relative; z-index: 2;
         }
 
-        .pre-wordmark {
-            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em;
-            text-transform: uppercase; color: rgba(255,255,255,0.45);
+        .pre-progress-ring {
+            position: absolute; inset: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.05);
+            border-top-color: #C2B280;
+            border-right-color: rgba(194,178,128,0.4);
+            animation: pre-spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            box-shadow: 0 0 15px rgba(194,178,128,0.2);
+            z-index: 1;
         }
 
-        .pre-bar {
-            width: 140px; height: 1.5px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 2px; margin-top: 20px; overflow: hidden;
+        .pre-text {
+            margin-top: 32px;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
         }
 
-        .pre-bar-fill {
-            height: 100%; width: 0%; background: #C2B280;
-            border-radius: 2px;
-            animation: pre-load 1.8s cubic-bezier(0.4,0,0.2,1) forwards;
-            box-shadow: 0 0 8px rgba(194,178,128,0.6);
+        .pre-text span {
+            color: #C2B280;
+            opacity: 0;
+            animation: pre-dots 1.5s infinite;
         }
+        .pre-text span:nth-child(2) { animation-delay: 0.2s; }
+        .pre-text span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes pre-spin { to { transform: rotate(360deg); } }
-        @keyframes pre-load { 0% { width:0%; } 60% { width:80%; } 100% { width:100%; } }
+        @keyframes pre-glow-pulse { from { opacity: 0.4; transform: scale(0.9); } to { opacity: 1; transform: scale(1.1); } }
+        @keyframes pre-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes pre-shine { 0% { transform: translate(-30%, -30%) rotate(45deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(30%, 30%) rotate(45deg); opacity: 0; } }
+        @keyframes pre-dots { 0%, 20% { opacity: 0; } 50%, 100% { opacity: 1; } }
 
         /* =============================================
            AMBIENT ORBS
@@ -746,7 +757,7 @@
         .subsection-title { font-size:1.15rem; font-weight:700; letter-spacing:-0.01em; margin-bottom:28px; display:flex; align-items:center; gap:10px; }
         .subsection-title i { color:var(--accent); font-size:1rem; }
         .payment-methods { margin-bottom:60px; }
-        .payment-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        .payment-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width: 800px; margin: 0 auto; }
         .payment-card {
             background:var(--glass); border:1px solid var(--glass-border); border-radius:var(--radius);
             backdrop-filter:blur(40px) saturate(180%); -webkit-backdrop-filter:blur(40px) saturate(180%);
@@ -861,7 +872,7 @@
             .workflow-grid { grid-template-columns:repeat(2,1fr); }
             .workflow-connector { display:none; }
             .ethics-grid { grid-template-columns:repeat(2,1fr); }
-            .payment-grid { grid-template-columns:repeat(3,1fr); }
+            .payment-grid { grid-template-columns:repeat(2,1fr); }
             .pricing-grid { grid-template-columns:repeat(2,1fr); }
             .pricing-card:last-child { grid-column:1/-1; max-width:400px; justify-self:center; width:100%; }
         }
@@ -921,14 +932,14 @@
 
     <!-- ========== PRELOADER ========== -->
     <div id="preloader">
-        <div class="pre-glass">
-            <div class="pre-ring"></div>
-            <div class="pre-inner">
+        <div class="pre-ambient-glow"></div>
+        <div class="pre-container">
+            <div class="pre-glass-card">
                 <img src="https://i.postimg.cc/vHHQh3KW/tsmym-bdwn-ʿnwan.png" alt="Fahym fx Logo" class="pre-logo-img">
+                <div class="pre-progress-ring"></div>
             </div>
+            <div class="pre-text" data-i18n="preloader_text">Loading<span>.</span><span>.</span><span>.</span></div>
         </div>
-        <div class="pre-wordmark" style="display:flex;align-items:center;gap:8px;">Fahym fx</div>
-        <div class="pre-bar"><div class="pre-bar-fill"></div></div>
     </div>
 
     <!-- Ambient Background -->
@@ -1201,11 +1212,6 @@
                         <p data-i18n="pay_1_desc">Secure Local / International Transfer</p>
                     </div>
                     <div class="payment-card fade-up fade-up-d2">
-                        <div class="payment-icon-wrap"><div class="payment-icon"><i class="fas fa-globe"></i></div></div>
-                        <h4 data-i18n="pay_2_title">Wise (TransferWise)</h4>
-                        <p data-i18n="pay_2_desc">Best for International Clients (Low Fees)</p>
-                    </div>
-                    <div class="payment-card fade-up fade-up-d3">
                         <div class="payment-icon-wrap"><div class="payment-icon"><i class="fab fa-bitcoin"></i></div></div>
                         <h4 data-i18n="pay_3_title">Crypto (USDT)</h4>
                         <p data-i18n="pay_3_desc">Fast & Low Transaction Fees</p>
