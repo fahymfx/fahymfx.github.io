@@ -2664,7 +2664,7 @@
             <i class="fas fa-home"></i><span class="dock-dot"></span>
             <span class="dock-tooltip" data-i18n="dock_home">Home</span>
         </a>
-        <a href="#portfolio" class="dock-item" data-dock="portfolio" aria-label="Portfolio">
+        <a href="#styles" class="dock-item" data-dock="styles" aria-label="Portfolio">
             <i class="fas fa-play-circle"></i><span class="dock-dot"></span>
             <span class="dock-tooltip" data-i18n="dock_portfolio">Portfolio</span>
         </a>
@@ -2718,7 +2718,7 @@
                     <span class="skill-chip" data-i18n="skill_5">Vertical Editing</span>
                 </div>
                 <div class="hero-actions fade-up fade-up-d4">
-                    <a href="#portfolio" class="btn-primary">
+                    <a href="#styles" class="btn-primary">
                         <i class="fas fa-play" style="font-size:.75rem;"></i>
                         <span data-i18n="hero_cta_work">View My Work</span>
                     </a>
@@ -2750,7 +2750,7 @@
     </section>
 
     <!-- PORTFOLIO -->
-    <section class="portfolio-section" id="portfolio">
+    <section class="portfolio-section" id="styles">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="fade-up" data-i18n="portfolio_title">Selected Work</h2>
@@ -2761,48 +2761,42 @@
                     <div class="category-icon"><i class="fas fa-microphone-alt"></i></div>
                     <h3 data-i18n="cat_talking_head">Talking Head</h3>
                     <p data-i18n="cat_talking_head_desc">Professional face-to-camera edits with dynamic captions.</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_projects">3
-                            Projects</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="talking_head"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="category-card fade-up fade-up-d2" onclick="showCategory('minimal')">
                     <div class="category-icon"><i class="fas fa-feather-alt"></i></div>
                     <h3 data-i18n="cat_minimal">Minimal Style</h3>
                     <p data-i18n="cat_minimal_desc">Clean and elegant edits.</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming
-                            Soon</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="minimal"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="category-card fade-up fade-up-d3" onclick="showCategory('3d')">
                     <div class="category-icon"><i class="fas fa-cube"></i></div>
                     <h3 data-i18n="cat_3d">3D Style</h3>
                     <p data-i18n="cat_3d_desc">Immersive 3D motion graphics and visual effects</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming
-                            Soon</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="3d"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="category-card fade-up fade-up-d4" onclick="showCategory('collage')">
                     <div class="category-icon"><i class="fas fa-layer-group"></i></div>
                     <h3 data-i18n="cat_collage">Collage Style</h3>
                     <p data-i18n="cat_collage_desc">Layered compositions blending textures and footage</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming
-                            Soon</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="collage"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="category-card fade-up fade-up-d5" onclick="showCategory('paper')">
                     <div class="category-icon"><i class="fas fa-scroll"></i></div>
                     <h3 data-i18n="cat_paper">Paper Texture</h3>
                     <p data-i18n="cat_paper_desc">Organic, tactile edits with vintage paper overlays</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming
-                            Soon</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="paper"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="category-card fade-up fade-up-d6" onclick="showCategory('ui')">
                     <div class="category-icon"><i class="fas fa-mobile-screen-button"></i></div>
                     <h3 data-i18n="cat_ui">UI Style</h3>
                     <p data-i18n="cat_ui_desc">Sleek app & web interface animations and walkthroughs</p>
-                    <span class="category-count"><i class="fas fa-film"></i> <span data-i18n="cat_coming_soon">Coming
-                            Soon</span></span>
+                    <span class="category-count"><i class="fas fa-film"></i> <span data-cat-count="ui"></span></span>
                     <div class="category-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
@@ -3134,7 +3128,7 @@
                 cat_collage: 'Collage Style', cat_collage_desc: 'Layered compositions blending textures and footage',
                 cat_paper: 'Paper Texture', cat_paper_desc: 'Organic, tactile edits with vintage paper overlays',
                 cat_ui: 'UI Style', cat_ui_desc: 'Sleek app & web interface animations and walkthroughs',
-                cat_projects: '3 Projects', cat_coming_soon: 'Coming Soon',
+                cat_projects_one: '1 Project', cat_projects_many: '{n} Projects', cat_coming_soon: 'Coming Soon',
                 back_btn: 'Back to Dashboard',
                 ethics_badge: 'Creative Standards', ethics_title: 'My Work Ethics',
                 ethics_subtitle: 'Clear creative policies that guide every project I take on',
@@ -3190,7 +3184,7 @@
                 cat_collage: 'أسلوب الكولاج', cat_collage_desc: 'تركيبات متعددة الطبقات تمزج بين النصوص واللقطات',
                 cat_paper: 'نسيج الورق', cat_paper_desc: 'مونتاج عضوي بتراكبات ورقية عتيقة',
                 cat_ui: 'أسلوب واجهات', cat_ui_desc: 'رسوم تطبيقات وواجهات ويب أنيقة وعروض تفاعلية',
-                cat_projects: '٣ مشاريع', cat_coming_soon: 'قريباً',
+                cat_projects_one: 'مشروع 1', cat_projects_many: '{n} مشاريع', cat_coming_soon: 'قريباً',
                 back_btn: 'العودة للوحة التحكم',
                 ethics_badge: 'المعايير الإبداعية', ethics_title: 'أخلاقيات العمل',
                 ethics_subtitle: 'سياسات إبداعية واضحة تُوجّه كل مشروع أتولّاه',
@@ -3242,7 +3236,11 @@
                         { title: 'Pure Essence', desc: 'A minimalist storytelling piece focusing on raw emotion and high-quality visuals without any distractions.', tag: 'Talking Head', url: 'https://www.youtube.com/embed/PYUU2Z4QPCw' }
                     ]
                 },
-                minimal: { title: 'Minimal Style', projects: [] },
+                minimal: {
+                    title: 'Minimal Style', projects: [
+                        { id: 'M1', videoId: 'ZWKz-jl3COE', thumbnail: 'https://img.youtube.com/vi/ZWKz-jl3COE/hqdefault.jpg', tag: 'Minimal Style', title: 'Minimal Style Edit', desc: 'A clean and elegant edit with a focus on simplicity.' }
+                    ]
+                },
                 '3d': { title: '3D Style', projects: [] }, collage: { title: 'Collage Style', projects: [] },
                 paper: { title: 'Paper Texture', projects: [] }, ui: { title: 'UI Style', projects: [] }
             },
@@ -3254,7 +3252,11 @@
                         { title: 'جوهر النقاء', desc: 'قطعة سردية بسيطة تركز على العاطفة الخام والبصريات عالية الجودة دون أي مشتتات.', tag: 'فيديوهات المتحدث', url: 'https://www.youtube.com/embed/PYUU2Z4QPCw' }
                     ]
                 },
-                minimal: { title: 'الأسلوب البسيط', projects: [] },
+                minimal: {
+                    title: 'الأسلوب البسيط', projects: [
+                        { id: 'M1', videoId: 'ZWKz-jl3COE', thumbnail: 'https://img.youtube.com/vi/ZWKz-jl3COE/hqdefault.jpg', tag: 'الأسلوب البسيط', title: 'مونتاج الأسلوب البسيط', desc: 'مونتاج نظيف وأنيق مع التركيز على البساطة.' }
+                    ]
+                },
                 '3d': { title: 'أسلوب ثلاثي الأبعاد', projects: [] }, collage: { title: 'أسلوب الكولاج', projects: [] },
                 paper: { title: 'نسيج الورق', projects: [] }, ui: { title: 'أسلوب واجهات', projects: [] }
             }
@@ -3319,6 +3321,7 @@
             });
 
             localStorage.setItem('lang', l);
+            updateCategoryCounts();
 
             if (projectsView.classList.contains('active-view') && currentCat) renderProjects(currentCat);
         }
@@ -3371,15 +3374,18 @@
                 data.projects.forEach(p => {
                     const card = document.createElement('div');
                     card.className = 'project-item';
+                    const videoUrl = p.url || `https://www.youtube.com/embed/${p.videoId}`;
+                    const projectTitle = p.title || p.tag || 'Project';
+                    const projectDesc = p.desc || '';
                     card.innerHTML = `
                     <div class="vertical-video-wrapper">
-                        <iframe src="${p.url}" title="${p.title}" loading="lazy"
+                        <iframe src="${videoUrl}" title="${projectTitle}" loading="lazy"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
                     <div class="project-info">
-                        <h3>${p.title}</h3>
-                        <p>${p.desc}</p>
+                        <h3>${projectTitle}</h3>
+                        <p>${projectDesc}</p>
                         <span class="project-tag">${p.tag}</span>
                     </div>`;
                     projectsGrid.appendChild(card);
@@ -3395,6 +3401,24 @@
             }
         }
 
+        function updateCategoryCounts() {
+            const cats = ['talking_head', 'minimal', '3d', 'collage', 'paper', 'ui'];
+            cats.forEach(cat => {
+                const count = PROJECTS[currentLang][cat].projects.length;
+                const el = document.querySelector(`[data-cat-count="${cat}"]`);
+                if (el) {
+                    if (count === 0) {
+                        el.setAttribute('data-i18n', 'cat_coming_soon');
+                        el.textContent = T[currentLang].cat_coming_soon;
+                    } else {
+                        el.removeAttribute('data-i18n');
+                        const template = count === 1 ? T[currentLang].cat_projects_one : T[currentLang].cat_projects_many;
+                        el.textContent = template.replace('{n}', count);
+                    }
+                }
+            });
+        }
+
         function showCategory(cat) {
             currentCat = cat;
             renderProjects(cat);
@@ -3404,7 +3428,7 @@
                 document.body.classList.add('focus-active');
                 projectsView.classList.add('active-view', 'slide-in');
             }, 400);
-            setTimeout(() => $('portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' }), 500);
+            setTimeout(() => $('styles').scrollIntoView({ behavior: 'smooth', block: 'start' }), 500);
         }
 
         function switchTab(cat, e) {
@@ -3429,7 +3453,7 @@
                 void categoriesGrid.offsetWidth;
                 categoriesGrid.classList.remove('fade-out');
             }, 350);
-            setTimeout(() => $('portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' }), 450);
+            setTimeout(() => $('styles').scrollIntoView({ behavior: 'smooth', block: 'start' }), 450);
         }
 
         // =============================================
@@ -3481,7 +3505,16 @@
 
         window.addEventListener('scroll', () => {
             let cur = 'hero';
-            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 300) cur = s.id; });
+            sections.forEach(s => {
+                // Ensure the section is visible (not display:none in focus mode)
+                if (s.offsetParent !== null && window.scrollY >= s.offsetTop - 200) {
+                    cur = s.id;
+                }
+            });
+            // Force active state to 'styles' if in focus-active mode
+            if (document.body.classList.contains('focus-active')) {
+                cur = 'styles';
+            }
             dockLinks.forEach(d => d.classList.toggle('active', d.getAttribute('data-dock') === cur));
         }, { passive: true });
 
